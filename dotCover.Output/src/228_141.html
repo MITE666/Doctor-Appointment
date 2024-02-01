@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\MedicationStockServiceTests\MedicationStockServiceTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoMapper;
+using DoctorAppointment.Application.Mapping;
+using DoctorAppointment.Application.Models;
+using DoctorAppointment.Application.Services;
+using DoctorAppointment.Application.Services.Implementation;
+using DoctorAppointment.Common;
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Repositories;
+using FluentAssertions;
+using NSubstitute;
+using Xunit;
+
+namespace MedicationStockServiceTests;
+
+public class MedicationStockServiceTests
+{
+    private readonly IMedicationStockService _service;
+    private readonly IMedicationStockRepository _repository;
+    private readonly IMapper _mapper;
+
+    public MedicationStockServiceTests()
+    {
+        _repository = Substitute.For&lt;IMedicationStockRepository&gt;();
+        var mapperConfiguration = new MapperConfiguration(x =&gt;
+        {
+            x.AddProfile(typeof(MedicationStockProfile));
+        });
+        _mapper = new Mapper(mapperConfiguration);
+
+        _service = new MedicationStockService(_repository, _mapper);
+    }
+
+    [Fact]
+    public async Task AddMedicationStock_Should_Return_Success()
+    {
+        //Arrange
+        _repository.AddMedicationStock(Arg.Any&lt;MedicationStock&gt;())
+            .Returns(new MedicationStock());
+
+        //Act
+        var result = await _service
+            .AddMedicationStock(new MedicationStockRequestModel());
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType&lt;ApiResponse&lt;MedicationStockResponseModel&gt;&gt;();
+        result.Succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task GetMedicationStockById_Should_Return_Success_When_Id_Exists()
+    {
+        //Arrange
+        _repository.GetMedicationStockById(Arg.Any&lt;Guid&gt;())
+            .Returns(new MedicationStock());
+
+        //Act
+        var result = await _service.GetMedicationStockById(new Guid());
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType&lt;ApiResponse&lt;MedicationStockResponseModel&gt;&gt;();
+        result.Succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task GetMedicationStockById_Should_Return_Null_When_Id_Doesnt_Exist()
+    {
+        //Arrange
+        _repository.GetMedicationStockById(Arg.Any&lt;Guid&gt;())
+            .Returns(null as MedicationStock);
+
+        //Act
+        var result = await _service.GetMedicationStockById(new Guid());
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Succeeded.Should().BeFalse();
+        result.Errors.Should().HaveCount(1);
+    }
+
+    [Fact]
+    public async Task UpdateMedicationStock_Should_Return_MedicationStock_When_MedicationStock_Exists()
+    {
+        //Arrange
+        _repository.UpdateMedicationStock(Arg.Any&lt;MedicationStock&gt;())
+            .Returns(new MedicationStock());
+
+        //Act
+        var result = await _service.UpdateMedicationStock(new MedicationStock());
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType&lt;ApiResponse&lt;MedicationStockResponseModel&gt;&gt;();
+        result.Succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task UpdateMedicationStock_Should_Return_Null_When_MedicationStock_Doesnt_Exist()
+    {
+        //Arrange
+        _repository.UpdateMedicationStock(Arg.Any&lt;MedicationStock&gt;())!
+            .Returns(null as MedicationStock);
+
+        //Act
+        var result = await _service.UpdateMedicationStock(new MedicationStock());
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Succeeded.Should().BeFalse();
+        result.Errors.Should().HaveCount(1);
+    }
+
+    [Fact]
+    public async Task DeleteMedicationStock_Should_Return_Success_When_MedicationStock_Exists()
+    {
+        //Arrange
+        _repository.GetMedicationStockById(Arg.Any&lt;Guid&gt;())
+            .Returns(new MedicationStock());
+        _repository.DeleteMedicationStock(Arg.Any&lt;Guid&gt;())
+            .Returns(true);
+        //Act
+        var result = await _service.DeleteMedicationStock(new Guid());
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task DeleteMedicationStock_Should_Return_Failure_When_MedicationStock_Doesnt_Exist()
+    {
+        //Arrange
+        _repository.GetMedicationStockById(Arg.Any&lt;Guid&gt;())
+            .Returns(null as MedicationStock);
+
+        //Act
+        var result = await _service.DeleteMedicationStock(new Guid());
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Succeeded.Should().BeFalse();
+        result.Errors.Count.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task GetAllMedicationStock_Should_Return_Success_When_MedicationStock_Exist()
+    {
+        //Arrange
+        _repository.GetAllMedicationStock()
+            .Returns(new List&lt;MedicationStock&gt;() { new MedicationStock() });
+
+        //Act
+        var result = await _service.GetAllMedicationStock();
+
+        //Assert
+        result.Should().NotBeNull();
+        result.Succeeded.Should().BeTrue();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,5,21,41,1],[22,5,22,6,1],[23,9,23,68,1],[24,9,25,9,1],[25,9,25,10,1],[25,10,26,13,1],[26,13,26,58,1],[26,58,27,9,1],[27,9,27,10,1],[27,10,27,12,1],[28,9,28,51,1],[30,9,30,69,1],[31,5,31,6,1],[35,5,35,6,1],[37,9,38,45,1],[41,9,42,68,1],[45,9,45,37,1],[46,9,46,79,1],[47,9,47,44,1],[48,5,48,6,1],[52,5,52,6,1],[54,9,55,45,1],[58,9,58,72,1],[61,9,61,37,1],[62,9,62,79,1],[63,9,63,44,1],[64,5,64,6,1],[68,5,68,6,1],[70,9,71,47,1],[74,9,74,72,1],[77,9,77,37,1],[78,9,78,45,1],[79,9,79,45,1],[80,5,80,6,1],[84,5,84,6,1],[86,9,87,45,1],[90,9,90,82,1],[93,9,93,37,1],[94,9,94,79,1],[95,9,95,44,1],[96,5,96,6,1],[100,5,100,6,1],[102,9,103,47,1],[106,9,106,82,1],[109,9,109,37,1],[110,9,110,45,1],[111,9,111,45,1],[112,5,112,6,1],[116,5,116,6,1],[118,9,119,45,1],[120,9,121,28,1],[123,9,123,71,1],[126,9,126,37,1],[127,9,127,44,1],[128,5,128,6,1],[132,5,132,6,1],[134,9,135,47,1],[138,9,138,71,1],[141,9,141,37,1],[142,9,142,45,1],[143,9,143,44,1],[144,5,144,6,1],[148,5,148,6,1],[150,9,151,77,1],[154,9,154,61,1],[157,9,157,37,1],[158,9,158,44,1],[159,5,159,6,1]]);
+    </script>
+  </body>
+</html>

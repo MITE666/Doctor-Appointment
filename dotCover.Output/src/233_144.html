@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\UserIntegrationTests\Models\ApiResult.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+
+#pragma warning disable 8618
+namespace UserIntegrationTests.Models
+{
+    public class ApiResult&lt;T&gt;
+    {
+        public bool Succeeded { get; init; }
+
+        public T Result { get; init; }
+
+        public IEnumerable&lt;ValidationError&gt; Errors { get; init; } = new List&lt;ValidationError&gt;();
+
+    }
+
+
+    public class ValidationError
+    {
+        public ValidationError(string? field, string message)
+        {
+            this.Field = field != string.Empty ? field : null;
+            this.Message = message;
+        }
+
+        public string? Field { get; }
+
+        public string Message { get; }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[7,33,7,37,0],[7,38,7,43,0],[9,27,9,31,0],[9,32,9,37,0],[11,54,11,58,0],[11,59,11,64,0],[11,69,11,96,0],[18,9,18,62,0],[19,9,19,10,0],[20,13,20,63,0],[21,13,21,36,0],[22,9,22,10,0],[24,32,24,36,0],[26,33,26,37,0]]);
+    </script>
+  </body>
+</html>

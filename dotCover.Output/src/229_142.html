@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\PacientIntegrationTests\PacientIntegrationTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointment;
+using DoctorIntegrationTests;
+using FluentAssertions;
+using System.Net;
+
+namespace PacientIntegrationTests;
+
+public class PacientIntegrationTests
+{
+    private readonly HttpClient _httpClient;
+
+    public PacientIntegrationTests()
+    {
+        _httpClient = new CustomWebApplicationFactory&lt;Program&gt;().CreateClient();
+    }
+
+    [Fact]
+    public async void WhenRequestingGetAllPacients_GivenEmptyDatabse_ShouldReturn_BadRequest()
+    {
+        //act
+        var response = await _httpClient.GetAsync(&quot;api/Pacient&quot;);
+        //assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,5,12,37,1],[13,5,13,6,1],[14,9,14,81,1],[15,5,15,6,1],[19,5,19,6,1],[21,9,21,66,1],[23,9,23,68,1],[24,5,24,6,1]]);
+    </script>
+  </body>
+</html>

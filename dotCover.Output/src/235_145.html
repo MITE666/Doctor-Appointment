@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\UserTests\UserServiceTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoMapper;
+using DoctorAppointment.Application.Mapping;
+using DoctorAppointment.Application.Models;
+using DoctorAppointment.Application.Services;
+using DoctorAppointment.Application.Services.Implementation;
+using DoctorAppointment.Common;
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Repositories;
+using FluentAssertions;
+using NSubstitute;
+
+namespace UserTests
+{
+    public class UserServiceTests
+    {
+        private readonly IUserService _service;
+        private readonly IUserRepository _repository;
+        private readonly IMapper _mapper;
+
+        public UserServiceTests()
+        {
+            _repository = Substitute.For&lt;IUserRepository&gt;();
+            var mapperConfiguration = new MapperConfiguration(x =&gt;
+            {
+                x.AddProfile(typeof(UserProfile));
+            });
+            _mapper = new Mapper(mapperConfiguration);
+
+            _service = new UserService(_repository, _mapper);
+        }
+
+        [Fact]
+        public async Task GetUserByIdAsync_Should_Return_User()
+        {
+            //Arrange
+            _repository.GetUserById(Guid.Parse(&quot;1eda85db-9e9f-44b1-880f-8f52fa742c6b&quot;))
+                .Returns(new User()
+                {
+                    Id = Guid.Parse(&quot;1eda85db-9e9f-44b1-880f-8f52fa742c6b&quot;),
+                    Email = &quot;email@email.com&quot;,
+                    Password = &quot;password&quot;,
+                    UserTypeId = Guid.Parse(&quot;d6d84185-d186-422f-8d94-17040b6982d3&quot;),
+                    UserType = new UserType()
+                    {
+                        Id = Guid.Parse(&quot;d6d84185-d186-422f-8d94-17040b6982d3&quot;),
+                        Type = &quot;Doctor&quot;
+                    }
+                });
+
+            //Act
+            var result = await _service.GetUserById(Guid.Parse(&quot;1eda85db-9e9f-44b1-880f-8f52fa742c6b&quot;));
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType&lt;ApiResponse&lt;UserResponseModel&gt;&gt;();
+            result.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task UpdateUser_Should_Return_Null_If_User_Not_Found()
+        {
+            //Arrange
+            _repository.UpdateUser(Arg.Any&lt;User&gt;())
+                .Returns(null as User);
+
+            //Act
+            var result = await _service.UpdateUser(new User());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public async Task DeleteUser_Should_Return_Null_If_User_Not_Found()
+        {
+            //Arrange
+            _repository.GetUserById(Arg.Any&lt;Guid&gt;())
+                .Returns(null as User);
+
+            //Act
+            var result = await _service.DeleteUser(new Guid());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public async Task DeleteUser_Should_Return_Success_If_User_Exists()
+        {
+            //Arrange
+            _repository.GetUserById(Arg.Any&lt;Guid&gt;())
+                .Returns(new User());
+            _repository.DeleteUser(Arg.Any&lt;Guid&gt;())
+                .Returns(true);
+
+            //Act
+            var result = await _service.DeleteUser(new Guid());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task DeleteUser_Should_Return_Failure_If_User_Doesnt_Exist()
+        {
+            //Arrange
+            _repository.GetUserById(Arg.Any&lt;Guid&gt;())
+                .Returns(null as User);
+
+            //Act
+            var result = await _service.DeleteUser(new Guid());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public async Task GetAllUsers_Should_Return_Success_If_Users_Exist()
+        {
+            //Arrange
+            _repository.GetAllUsers()
+                .Returns(new List&lt;User&gt;() { new User() });
+
+            //Act
+            var result = await _service.GetAllUsers();
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task GetAllUsers_Should_Return_Failure_If_Users_Dont_Exist()
+        {
+            //Arrange
+            _repository.GetAllUsers()
+                .Returns(new List&lt;User&gt;());
+
+            //Act
+            var result = await _service.GetAllUsers();
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task GetUserById_Should_Return_Success_If_Users_Exist()
+        {
+            //Arrange
+            _repository.GetUserById(Arg.Any&lt;Guid&gt;())
+                .Returns(new User());
+
+            //Act
+            var result = await _service.GetUserById(new Guid());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task GetUserById_Should_Return_Failure_If_User_Doesnt_Exist()
+        {
+            //Arrange
+            _repository.GetUserById(Arg.Any&lt;Guid&gt;())
+                .Returns(null as User);
+
+            //Act
+            var result = await _service.GetUserById(new Guid());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public async Task UpdateUser_Should_Return_Success_If_Users_Exist()
+        {
+            //Arrange
+            _repository.GetUserById(Arg.Any&lt;Guid&gt;())
+                .Returns(new User());
+            _repository.UpdateUser(Arg.Any&lt;User&gt;())
+                .Returns(new User());
+
+            //Act
+            var result = await _service.UpdateUser(new User());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task UpdateUser_Should_Return_Failure_If_User_Doesnt_Exist()
+        {
+            //Arrange
+            _repository.GetUserById(Arg.Any&lt;Guid&gt;())
+                .Returns(null as User);
+
+            //Act
+            var result = await _service.UpdateUser(new User());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task AddUser_Should_Return_Failure_If_UserType_Doesnt_Exit()
+        {
+            //Arrange
+            _repository.AddUser(Arg.Any&lt;User&gt;())
+                .Returns(null as User);
+
+            //Act
+            var result = await _service.AddUser(new UserRequestModel());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task AddUser_Should_Return_Succes_If_Data_Is_Correct()
+        {
+            //Arrange
+            _repository.AddUser(Arg.Any&lt;User&gt;())
+                .Returns(new User());
+
+            //Act
+            var result = await _service.AddUser(new UserRequestModel());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeTrue();
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[20,9,20,34,1],[21,9,21,10,1],[22,13,22,61,1],[23,13,24,13,1],[24,13,24,14,1],[24,14,25,17,1],[25,17,25,51,1],[25,51,26,13,1],[26,13,26,14,1],[26,14,26,16,1],[27,13,27,55,1],[29,13,29,62,1],[30,9,30,10,1],[34,9,34,10,1],[36,13,48,20,1],[51,13,51,105,1],[53,13,53,41,1],[54,13,54,72,1],[55,13,55,48,1],[56,9,56,10,1],[60,9,60,10,1],[62,13,63,40,1],[66,13,66,64,1],[69,13,69,41,1],[70,13,70,49,1],[71,13,71,49,1],[72,9,72,10,1],[76,9,76,10,1],[78,13,79,40,1],[82,13,82,64,1],[85,13,85,41,1],[86,13,86,49,1],[87,13,87,49,1],[88,9,88,10,1],[92,9,92,10,1],[94,13,95,38,1],[96,13,97,32,1],[100,13,100,64,1],[103,13,103,41,1],[104,13,104,48,1],[105,9,105,10,1],[109,9,109,10,1],[111,13,112,40,1],[115,13,115,64,1],[118,13,118,41,1],[119,13,119,49,1],[120,13,120,49,1],[121,9,121,10,1],[125,9,125,10,1],[127,13,128,59,1],[131,13,131,55,1],[134,13,134,41,1],[135,13,135,48,1],[136,9,136,10,1],[140,9,140,10,1],[142,13,143,44,1],[146,13,146,55,1],[149,13,149,41,1],[150,13,150,49,1],[151,13,151,48,1],[152,9,152,10,1],[156,9,156,10,1],[158,13,159,38,1],[162,13,162,65,1],[165,13,165,41,1],[166,13,166,48,1],[167,9,167,10,1],[171,9,171,10,1],[173,13,174,40,1],[177,13,177,65,1],[180,13,180,41,1],[181,13,181,49,1],[182,13,182,49,1],[183,9,183,10,1],[187,9,187,10,1],[189,13,190,38,1],[191,13,192,38,1],[195,13,195,64,1],[198,13,198,41,1],[199,13,199,48,1],[200,9,200,10,1],[204,9,204,10,1],[206,13,207,40,1],[210,13,210,64,1],[213,13,213,41,1],[214,13,214,49,1],[215,13,215,48,1],[216,9,216,10,1],[220,9,220,10,1],[222,13,223,40,1],[226,13,226,73,1],[229,13,229,41,1],[230,13,230,49,1],[231,13,231,48,1],[232,9,232,10,1],[236,9,236,10,1],[238,13,239,38,1],[242,13,242,73,1],[245,13,245,41,1],[246,13,246,48,1],[247,9,247,10,1]]);
+    </script>
+  </body>
+</html>

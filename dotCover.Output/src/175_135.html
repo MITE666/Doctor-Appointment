@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\Configurations\DoctorConfigurations.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace DoctorAppointments.DataAccess.Persistence.Configurations
+{
+    public class DoctorConfiguration : IEntityTypeConfiguration&lt;Doctor&gt;
+    {
+        public void Configure(EntityTypeBuilder&lt;Doctor&gt; builder)
+        {
+            builder.HasKey(type =&gt; type.Id);
+            builder.HasIndex(x =&gt; x.CNP).IsUnique();
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[10,9,10,10,1],[11,13,11,45,1],[12,13,12,53,1],[13,9,13,10,1]]);
+    </script>
+  </body>
+</html>

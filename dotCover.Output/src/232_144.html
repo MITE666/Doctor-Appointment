@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\UserIntegrationTests\UserIntegrationTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointment;
+using DoctorAppointment.Application.Models;
+using DoctorAppointment.Common;
+using DoctorAppointments.DataAccess.Entities;
+using FluentAssertions;
+using Newtonsoft.Json;
+using System.Net;
+using System.Net.Http.Json;
+using System.Text;
+
+namespace UserIntegrationTests
+{
+    public class UserIntegrationTests
+    {
+        private readonly HttpClient _httpClient;
+
+        public UserIntegrationTests()
+        {
+            _httpClient = new CustomWebApplicationFactory&lt;Program&gt;().CreateClient();
+        }
+
+        [Fact]
+        public async void GivenExistingId_WhenUsingGetRequest_ShouldReturn_Ok()
+        {
+            //Arrange
+            var userId = Guid.Parse(&quot;A825BD63-F0DB-4CB1-8FB4-AD698EF7E23B&quot;);
+
+            //Act
+            var response = await _httpClient.GetAsync($&quot;/api/User/{userId}&quot;);
+            var result = await _httpClient.GetFromJsonAsync&lt;UserResponseModel&gt;(
+                        $&quot;/api/User/{userId}&quot;);
+
+            //Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result.Should().NotBeNull();
+            result.Should().BeOfType&lt;UserResponseModel&gt;();
+        }
+
+        [Fact]
+        public async void GivenBadId_WhenUsingGetRequest_ShouldReturn_NotFound()
+        {
+            //Arrange
+            var userId = Guid.Parse(&quot;A825BD63-F0DB-4CB1-8FB4-AD698EF7E2DD&quot;);
+
+            //Act
+            var response = await _httpClient.GetAsync($&quot;/api/User/{userId}&quot;);
+
+            //Assert
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public async void WhenRequestGetAllUsers_Should_Return_OK()
+        {
+            //Act
+            var response = await _httpClient.GetAsync($&quot;/api/User&quot;);
+            var result = await response.Content.ReadAsStringAsync();
+
+            //Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result.Should().NotBeNull();
+            result.Should().NotBeEmpty();
+        }
+
+        [Fact]
+        public async void WhenDeletingAUser_GivenCorrectId_ShouldReturn_OK()
+        {
+            //arrange
+            var userId = Guid.Parse(&quot;A825BD63-F0DB-4CB1-8FB4-AD698EF7E23B&quot;);
+            //act
+            var response = await _httpClient.DeleteAsync($&quot;/api/User/{userId}&quot;);
+            //assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async void WhenDeletingAUser_GivenWrongId_ShouldReturn_BadRequest()
+        {
+            //arrange
+            var userId = Guid.Parse(&quot;A825BD63-F0DB-4CB1-8FB4-AD698EF7E2DD&quot;);
+            //act
+            var response = await _httpClient.DeleteAsync($&quot;/api/User/{userId}&quot;);
+            //assert
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public async void WhenAddingAUser_GivenCorrectData_ShouldReturn_Created()
+        {
+            //arrange
+            var user = new UserRequestModel()
+            {
+                UserTypeId = Guid.Parse(&quot;430F6E13-FF63-461F-9F24-4054B2D68BEE&quot;),
+                Email = &quot;email@email.com&quot;,
+                Password = &quot;Parola1234!&quot;
+            };
+            var serializedObject = JsonConvert.SerializeObject(user);
+
+            var httpContent = new StringContent(serializedObject, Encoding.UTF8, &quot;application/json&quot;);
+            //act
+
+            var response = await _httpClient.PostAsync($&quot;/api/User&quot;, httpContent);
+            var result = JsonConvert.DeserializeObject&lt;ApiResponse&lt;UserResponseModel&gt;&gt;(await response.Content.ReadAsStringAsync());
+
+            //assert
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+            result.Should().NotBeNull();
+            result.Should().BeOfType&lt;ApiResponse&lt;UserResponseModel&gt;&gt;();
+            result?.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async void WhenAddingAUser_GivenBadData_ShouldReturn_BadRequest()
+        {
+            //arrange
+            var user = new UserRequestModel()
+            {
+                UserTypeId = Guid.Empty,
+                Email = &quot;email@email.com&quot;,
+                Password = &quot;Parola1234&quot;
+            };
+            var serializedObject = JsonConvert.SerializeObject(user);
+
+            var httpContent = new StringContent(serializedObject, Encoding.UTF8, &quot;application/json&quot;);
+            //act
+
+            var response = await _httpClient.PostAsync($&quot;/api/User&quot;, httpContent);
+
+            //assert
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public async void WhenUpdatingAUser_GivenCorrectData_ShouldReturn_OK()
+        {
+            //arrange
+            var user = new User()
+            {
+                Id = Guid.Parse(&quot;15BF17E5-2D7D-42B5-8EBF-FC99B2D04D19&quot;),
+                UserTypeId = Guid.Parse(&quot;430F6E13-FF63-461F-9F24-4054B2D68BEE&quot;),
+                Email = &quot;email@email.com&quot;,
+                UserType = new UserType()
+                {
+                    Id = Guid.Parse(&quot;430F6E13-FF63-461F-9F24-4054B2D68BEE&quot;),
+                    Type = &quot;Doctor&quot;
+                },
+                Password = &quot;Parola1234&quot;
+            };
+            var serializedObject = JsonConvert.SerializeObject(user);
+
+            var httpContent = new StringContent(serializedObject, Encoding.UTF8, &quot;application/json&quot;);
+            //act
+
+            using var response = await _httpClient.PutAsync($&quot;/api/User&quot;, httpContent);
+            var result = JsonConvert.DeserializeObject&lt;ApiResponse&lt;UserResponseModel&gt;&gt;(await response.Content.ReadAsStringAsync());
+
+            //assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result.Should().NotBeNull();
+            result.Should().BeOfType&lt;ApiResponse&lt;UserResponseModel&gt;&gt;();
+            result?.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async void WhenUpdatingAUser_GivenBadData_ShouldReturn_BadRequest()
+        {
+            //arrange
+            var user = new User()
+            {
+                Id = Guid.Parse(&quot;A5BF17E5-2D7D-42B5-8EBF-FC99B2D04D15&quot;),
+                UserTypeId = Guid.Parse(&quot;430F6E13-FF63-461F-9F24-4054B2D68BEE&quot;),
+                Email = &quot;email@email.com&quot;,
+                Password = &quot;Parola1234&quot;
+            };
+            var serializedObject = JsonConvert.SerializeObject(user);
+
+            var httpContent = new StringContent(serializedObject, Encoding.UTF8, &quot;application/json&quot;);
+            //act
+
+            var response = await _httpClient.PutAsync($&quot;/api/User&quot;, httpContent);
+
+            //assert
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[17,9,17,38,1],[18,9,18,10,1],[19,13,19,85,1],[20,9,20,10,1],[24,9,24,10,1],[26,13,26,77,1],[29,13,29,78,1],[30,13,31,48,1],[34,13,34,64,1],[35,13,35,41,1],[36,13,36,59,1],[37,9,37,10,1],[41,9,41,10,1],[43,13,43,77,1],[46,13,46,78,1],[49,13,49,72,1],[50,9,50,10,1],[54,9,54,10,1],[56,13,56,69,1],[57,13,57,69,1],[60,13,60,64,1],[61,13,61,41,1],[62,13,62,42,1],[63,9,63,10,1],[67,9,67,10,1],[69,13,69,77,1],[71,13,71,81,1],[73,13,73,64,1],[74,9,74,10,1],[78,9,78,10,1],[80,13,80,77,1],[82,13,82,81,1],[84,13,84,72,1],[85,9,85,10,1],[89,9,89,10,1],[91,13,96,15,1],[97,13,97,70,1],[99,13,99,102,1],[102,13,102,83,1],[103,13,103,132,1],[106,13,106,69,1],[107,13,107,41,1],[108,13,108,72,1],[109,13,109,49,1],[110,9,110,10,1],[114,9,114,10,1],[116,13,121,15,1],[122,13,122,70,1],[124,13,124,102,1],[127,13,127,83,1],[130,13,130,72,1],[131,9,131,10,1],[135,9,135,10,1],[137,13,148,15,1],[149,13,149,70,1],[151,13,151,102,1],[154,13,154,88,1],[155,13,155,132,1],[158,13,158,64,1],[159,13,159,41,1],[160,13,160,72,1],[161,13,161,49,1],[162,9,162,10,1],[166,9,166,10,1],[168,13,174,15,1],[175,13,175,70,1],[177,13,177,102,1],[180,13,180,82,1],[183,13,183,72,1],[184,9,184,10,1]]);
+    </script>
+  </body>
+</html>

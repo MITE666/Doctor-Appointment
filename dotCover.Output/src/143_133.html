@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointment.Common\ApiResponse.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace DoctorAppointment.Common
+{
+    public class ApiResponse&lt;T&gt;
+    {
+        public bool Succeeded { get; init; }
+
+        public List&lt;ValidationError&gt; Errors { get; set; } = new List&lt;ValidationError&gt;();
+
+        public T? Data { get; set; }
+
+        public static ApiResponse&lt;T&gt; Fail(string errorMessage)
+        {
+            return new ApiResponse&lt;T&gt;() { Succeeded = false, Errors = new List&lt;ValidationError&gt;(){new ValidationError(null,errorMessage)}};
+        }
+        public static ApiResponse&lt;T&gt; Fail(List&lt;ValidationError&gt; errorMessage)
+        {
+            return new ApiResponse&lt;T&gt;() { Succeeded = false, Errors = errorMessage };
+        }
+
+        public static ApiResponse&lt;T&gt; Success(T data)
+        {
+            return new ApiResponse&lt;T&gt;() { Succeeded = true, Data = data };
+        }
+    }
+
+    public class ValidationError
+    {
+        public ValidationError(string? field, string message)
+        {
+            this.Field = field != string.Empty ? field : null;
+            this.Message = message;
+        }
+
+        public string? Field { get; }
+
+        public string Message { get; }
+    }
+
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[5,33,5,37,1],[5,38,5,43,1],[7,47,7,51,1],[7,52,7,56,1],[7,61,7,88,1],[9,26,9,30,1],[9,31,9,35,1],[12,9,12,10,1],[13,13,13,140,1],[14,9,14,10,1],[16,9,16,10,0],[17,13,17,86,0],[18,9,18,10,0],[21,9,21,10,1],[22,13,22,75,1],[23,9,23,10,1],[28,9,28,62,1],[29,9,29,10,1],[30,13,30,63,1],[31,13,31,36,1],[32,9,32,10,1],[34,32,34,36,0],[36,33,36,37,0]]);
+    </script>
+  </body>
+</html>

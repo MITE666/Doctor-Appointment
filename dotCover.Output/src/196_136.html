@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.Business\Validators\MedicationStockValidator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointment.Application.Models;
+using FluentValidation;
+
+namespace DoctorAppointment.Application.Validators
+{
+    public class MedicationStockValidator : AbstractValidator&lt;MedicationStockRequestModel&gt;
+
+    {
+        public MedicationStockValidator()
+        {
+            ClassLevelCascadeMode = CascadeMode.Stop;
+            RuleFor(stock =&gt; stock.Name).NotEmpty().NotNull();
+            RuleFor(stock =&gt; stock.Quantity).NotEmpty().NotNull().InclusiveBetween(1, 10000).WithMessage(&quot;Stock quantity not in range!&quot;);
+            RuleFor(stock =&gt; stock.Price).NotEmpty().NotNull().InclusiveBetween(1, 1000).WithMessage(&quot;Price not in range!&quot;);
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[9,9,9,42,0],[10,9,10,10,0],[11,13,11,54,0],[12,13,12,63,0],[13,13,13,138,0],[14,13,14,125,0],[15,9,15,10,0]]);
+    </script>
+  </body>
+</html>

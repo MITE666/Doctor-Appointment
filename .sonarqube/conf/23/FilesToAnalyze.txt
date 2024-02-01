@@ -1,0 +1,6 @@
+﻿C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\MedicationStockIntegrationTests\CustomWebApplicationFactory.cs
+C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\MedicationStockIntegrationTests\MedicationStockIntegrationTests.cs
+C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\MedicationStockIntegrationTests\Usings.cs
+C:\Users\oencut\.nuget\packages\microsoft.net.test.sdk\17.4.0\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.cs
+C:\Users\oencut\.nuget\packages\microsoft.testplatform.testhost\17.4.0\build\netcoreapp3.1\x64\testhost.exe
+C:\Users\oencut\.nuget\packages\microsoft.testplatform.testhost\17.4.0\build\netcoreapp3.1\x64\testhost.dll

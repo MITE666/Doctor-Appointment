@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorServiceTests\DoctorServiceTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoMapper;
+using DoctorAppointment.Application.Mapping;
+using DoctorAppointment.Application.Models;
+using DoctorAppointment.Application.Services;
+using DoctorAppointment.Application.Services.Implementation;
+using DoctorAppointment.Common;
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Repositories;
+using FluentAssertions;
+using NSubstitute;
+
+namespace DoctorServiceTests
+{
+    public class DoctorServiceTests
+    {
+        private readonly IDoctorService _service;
+        private readonly IDoctorRepository _repository;
+        private readonly IMapper _mapper;
+
+        public DoctorServiceTests()
+        {
+            _repository = Substitute.For&lt;IDoctorRepository&gt;();
+            var mapperConfiguration = new MapperConfiguration(x =&gt;
+            {
+                x.AddProfile(typeof(DoctorProfile));
+            });
+            _mapper = new Mapper(mapperConfiguration);
+
+            _service = new DoctorService(_repository, _mapper);
+        }
+
+        [Fact]
+        public async Task AddDoctor_Should_Return_Success()
+        {
+            //Arrange
+            _repository.AddDoctor(Arg.Any&lt;Doctor&gt;())
+                .Returns(new Doctor());
+
+            //Act
+            var result = await _service.AddDoctor(new DoctorRequestModel());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType&lt;ApiResponse&lt;DoctorResponseModel&gt;&gt;();
+            result.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task GetDoctorById_Should_Return_Success_When_Id_Exists()
+        {
+            //Arrange
+            _repository.GetDoctorById(Arg.Any&lt;Guid&gt;())
+                .Returns(new Doctor());
+
+            //Act
+            var result = await _service.GetDoctorById(new Guid());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType&lt;ApiResponse&lt;DoctorResponseModel&gt;&gt;();
+            result.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task GetDoctorById_Should_Return_Null_When_Id_Doesnt_Exist()
+        {
+            //Arrange
+            _repository.GetDoctorById(Arg.Any&lt;Guid&gt;())
+                .Returns(null as Doctor);
+
+            //Act
+            var result = await _service.GetDoctorById(new Guid());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public async Task UpdateDoctor_Should_Return_Doctor_When_Doctor_Exists()
+        {
+            //Arrange
+            _repository.UpdateDoctor(Arg.Any&lt;Doctor&gt;())
+                .Returns(new Doctor());
+
+            //Act
+            var result = await _service.UpdateDoctor(new Doctor());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType&lt;ApiResponse&lt;DoctorResponseModel&gt;&gt;();
+            result.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task UpdateDoctor_Should_Return_Null_When_Doctor_Doesnt_Exist()
+        {
+            //Arrange
+            _repository.UpdateDoctor(Arg.Any&lt;Doctor&gt;())!
+                .Returns(null as Doctor);
+
+            //Act
+            var result = await _service.UpdateDoctor(new Doctor());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public async Task DeleteDoctor_Should_Return_Success_When_Doctor_Exists()
+        {
+            //Arrange
+            _repository.GetDoctorById(Arg.Any&lt;Guid&gt;())
+                .Returns(new Doctor());
+            _repository.DeleteDoctor(Arg.Any&lt;Guid&gt;())
+                .Returns(true);
+            //Act
+            var result = await _service.DeleteDoctor(new Guid());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task DeleteDoctor_Should_Return_Failure_When_Doctor_Doesnt_Exist()
+        {
+            //Arrange
+            _repository.GetDoctorById(Arg.Any&lt;Guid&gt;())
+                .Returns(null as Doctor);
+
+            //Act
+            var result = await _service.DeleteDoctor(new Guid());
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task GetAllDoctors_Should_Return_Success_When_Doctors_Exist()
+        {
+            //Arrange
+            _repository.GetAllDoctors()
+                .Returns(new List&lt;Doctor&gt;() { new Doctor() });
+
+            //Act
+            var result = await _service.GetAllDoctors();
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeTrue();
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[20,9,20,36,1],[21,9,21,10,1],[22,13,22,63,1],[23,13,24,13,1],[24,13,24,14,1],[24,14,25,17,1],[25,17,25,53,1],[25,53,26,13,1],[26,13,26,14,1],[26,14,26,16,1],[27,13,27,55,1],[29,13,29,64,1],[30,9,30,10,1],[34,9,34,10,1],[36,13,37,40,1],[40,13,40,77,1],[43,13,43,41,1],[44,13,44,74,1],[45,13,45,48,1],[46,9,46,10,1],[50,9,50,10,1],[52,13,53,40,1],[56,13,56,67,1],[59,13,59,41,1],[60,13,60,74,1],[61,13,61,48,1],[62,9,62,10,1],[66,9,66,10,1],[68,13,69,42,1],[72,13,72,67,1],[75,13,75,41,1],[76,13,76,49,1],[77,13,77,49,1],[78,9,78,10,1],[82,9,82,10,1],[84,13,85,40,1],[88,13,88,68,1],[91,13,91,41,1],[92,13,92,74,1],[93,13,93,48,1],[94,9,94,10,1],[98,9,98,10,1],[100,13,101,42,1],[104,13,104,68,1],[107,13,107,41,1],[108,13,108,49,1],[109,13,109,49,1],[110,9,110,10,1],[114,9,114,10,1],[116,13,117,40,1],[118,13,119,32,1],[121,13,121,66,1],[124,13,124,41,1],[125,13,125,48,1],[126,9,126,10,1],[130,9,130,10,1],[132,13,133,42,1],[136,13,136,66,1],[139,13,139,41,1],[140,13,140,49,1],[141,13,141,48,1],[142,9,142,10,1],[146,9,146,10,1],[148,13,149,63,1],[152,13,152,57,1],[155,13,155,41,1],[156,13,156,48,1],[157,9,157,10,1]]);
+    </script>
+  </body>
+</html>

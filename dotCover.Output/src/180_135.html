@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\Configurations\UserTypeConfiguration.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace DoctorAppointments.DataAccess.Persistence.Configurations
+{
+    public class UserTypeConfiguration : IEntityTypeConfiguration&lt;UserType&gt;
+    {
+        public void Configure(EntityTypeBuilder&lt;UserType&gt; builder)
+        {
+            builder.HasKey(type =&gt; type.Id);
+            builder.HasData(
+            new[]
+            {
+                new UserType
+                {
+                    Id=Guid.Parse(&quot;8A16D3E1-DC8D-47D6-B93A-BD7A1D5824AB&quot;),
+                    Type = &quot;Patient&quot;
+                },
+                new UserType
+                {
+                    Id=Guid.Parse(&quot;430F6E13-FF63-461F-9F24-4054B2D68BEE&quot;),
+                    Type = &quot;Doctor&quot;
+                }
+            });
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[10,9,10,10,1],[11,13,11,45,1],[12,13,25,16,1],[26,9,26,10,1]]);
+    </script>
+  </body>
+</html>

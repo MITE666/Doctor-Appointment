@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\MedicationStockIntegrationTests\CustomWebApplicationFactory.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Persistence;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+namespace MedicationStockIntegrationTests
+{
+    public class CustomWebApplicationFactory&lt;TStartup&gt; : WebApplicationFactory&lt;TStartup&gt;
+         where TStartup : class
+    {
+        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        {
+            builder.ConfigureServices(services =&gt;
+            {
+                var descriptor = services.SingleOrDefault(
+                    d =&gt; d.ServiceType ==
+                         typeof(DbContextOptions&lt;DatabaseContext&gt;));
+                if (descriptor != null)
+                {
+                    services.Remove(descriptor);
+                }
+
+                services.AddDbContext&lt;DatabaseContext&gt;(options =&gt;
+                {
+                    options.UseInMemoryDatabase(&quot;InMemoryDbForTesting&quot;);
+                });
+
+                var sp = services.BuildServiceProvider();
+
+                using (var scope = sp.CreateScope())
+                {
+                    var scopedServices = scope.ServiceProvider;
+                    var db = scopedServices.GetRequiredService&lt;DatabaseContext&gt;();
+                    var logger = scopedServices
+                        .GetRequiredService&lt;ILogger&lt;CustomWebApplicationFactory&lt;TStartup&gt;&gt;&gt;();
+
+                    db.Database.EnsureDeleted();
+
+                    db.Database.EnsureCreated();
+
+                    try
+                    {
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError(ex, &quot;An error occurred seeding the &quot; +
+                                            &quot;database with test instances. Error: {Message}&quot;, ex.Message);
+                    }
+                }
+            });
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,9,14,10,1],[15,13,16,13,1],[16,13,16,14,1],[16,14,17,17,1],[17,17,18,26,1],[18,26,19,67,1],[19,67,19,69,1],[19,69,20,17,1],[20,17,20,40,1],[20,40,21,17,1],[21,17,21,18,1],[21,18,22,21,1],[22,21,22,49,1],[22,49,23,17,1],[23,17,23,18,1],[23,18,25,17,1],[25,17,26,17,1],[26,17,26,18,1],[26,18,27,21,1],[27,21,27,73,1],[27,73,28,17,1],[28,17,28,18,1],[28,18,28,20,1],[28,20,30,17,1],[30,17,30,58,1],[30,58,32,24,1],[32,24,32,52,1],[32,52,33,17,1],[33,17,33,18,1],[33,18,34,21,1],[34,21,34,64,1],[34,64,35,21,1],[35,21,35,83,1],[35,83,36,21,1],[36,21,37,95,1],[37,95,39,21,1],[39,21,39,49,1],[39,49,41,21,1],[41,21,41,49,1],[41,49,44,21,1],[44,21,44,22,1],[44,22,45,21,1],[45,21,45,22,1],[45,22,46,21,1],[46,21,46,41,0],[46,41,47,21,1],[47,21,47,22,0],[47,22,48,25,1],[48,25,49,107,0],[49,107,50,21,1],[50,21,50,22,0],[50,22,51,17,1],[51,17,51,18,1],[51,18,52,13,1],[52,13,52,14,1],[52,14,52,16,1],[53,9,53,10,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.Business\Services\Implementation\DoctorService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoMapper;
+using DoctorAppointment.Application.Models;
+using DoctorAppointment.Common;
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Repositories;
+
+namespace DoctorAppointment.Application.Services.Implementation;
+
+public class DoctorService : IDoctorService
+{
+    private readonly IDoctorRepository _doctorRepository;
+    private readonly IMapper _mapper;
+
+    public DoctorService(IDoctorRepository doctorRepository, IMapper mapper)
+    {
+        _doctorRepository = doctorRepository;
+        _mapper = mapper;
+    }
+
+    public async Task&lt;ApiResponse&lt;DoctorResponseModel&gt;&gt; AddDoctor(DoctorRequestModel doctorRequestModel)
+    {
+        var doctor = _mapper.Map&lt;Doctor&gt;(doctorRequestModel);
+        doctor = await _doctorRepository.AddDoctor(doctor);
+        return ApiResponse&lt;DoctorResponseModel&gt;.Success(_mapper.Map&lt;DoctorResponseModel&gt;(doctor));
+    }
+
+    public async Task&lt;ApiResponse&lt;bool&gt;&gt; DeleteDoctor(Guid id)
+    {
+        var result = await _doctorRepository.DeleteDoctor(id);
+        return result ? ApiResponse&lt;bool&gt;.Success(true) : ApiResponse&lt;bool&gt;.Fail(&quot;Doctor not found&quot;);
+    }
+
+    public async Task&lt;ApiResponse&lt;List&lt;DoctorResponseModel&gt;&gt;&gt; GetAllDoctors()
+    {
+        var doctors = await _doctorRepository.GetAllDoctors();
+        if (doctors.Count == 0)
+        {
+            return ApiResponse&lt;List&lt;DoctorResponseModel&gt;&gt;.Fail(&quot;Could not find doctors in db&quot;);
+        }
+        return ApiResponse&lt;List&lt;DoctorResponseModel&gt;&gt;.Success(_mapper.Map&lt;List&lt;DoctorResponseModel&gt;&gt;(doctors));
+    }
+
+    public async Task&lt;ApiResponse&lt;DoctorResponseModel&gt;&gt; GetDoctorById(Guid id)
+    {
+        var doctor = await _doctorRepository.GetDoctorById(id);
+        if (doctor == null)
+        {
+            return ApiResponse&lt;DoctorResponseModel&gt;.Fail(&quot;Could not find doctor&quot;);
+        }
+
+        return ApiResponse&lt;DoctorResponseModel&gt;.Success(_mapper.Map&lt;DoctorResponseModel&gt;(doctor));
+    }
+
+    public async Task&lt;ApiResponse&lt;DoctorResponseModel&gt;&gt; UpdateDoctor(Doctor doctor)
+    {
+        var result = await _doctorRepository.UpdateDoctor(doctor);
+        if (result == null)
+        {
+            return ApiResponse&lt;DoctorResponseModel&gt;.Fail(&quot;Could not find doctor&quot;);
+        }
+        return ApiResponse&lt;DoctorResponseModel&gt;.Success(_mapper.Map&lt;DoctorResponseModel&gt;(result));
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,5,14,77,1],[15,5,15,6,1],[16,9,16,46,1],[17,9,17,26,1],[18,5,18,6,1],[21,5,21,6,1],[22,9,22,62,1],[23,9,23,60,1],[24,9,24,99,1],[25,5,25,6,1],[28,5,28,6,1],[29,9,29,63,1],[30,9,30,102,1],[31,5,31,6,1],[34,5,34,6,1],[35,9,35,63,1],[36,9,36,32,1],[37,9,37,10,1],[38,13,38,96,1],[40,9,40,112,1],[41,5,41,6,1],[44,5,44,6,1],[45,9,45,64,1],[46,9,46,28,1],[47,9,47,10,1],[48,13,48,83,1],[51,9,51,99,1],[52,5,52,6,1],[55,5,55,6,1],[56,9,56,67,1],[57,9,57,28,1],[58,9,58,10,1],[59,13,59,83,1],[61,9,61,99,1],[62,5,62,6,1]]);
+    </script>
+  </body>
+</html>

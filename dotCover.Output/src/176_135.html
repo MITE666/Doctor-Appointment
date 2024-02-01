@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\Configurations\MedicalFacilityConfiguration.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace DoctorAppointments.DataAccess.Persistence.Configurations
+{
+    public class MedicalFacilityConfiguration : IEntityTypeConfiguration&lt;MedicalFacility&gt;
+    {
+        public void Configure(EntityTypeBuilder&lt;MedicalFacility&gt; builder)
+        {
+            builder.HasKey(type =&gt; type.Id);
+            builder.HasData(
+                new[]
+                {
+                    new MedicalFacility()
+                    {
+                        Id=Guid.Parse(&quot;4DA05E2D-F887-466C-80AD-89CF1C0A0E8F&quot;),
+                        Name = &quot;Arcadia&quot;,
+                        CityId = Guid.Parse(&quot;451d4ccb-7d3a-11ed-b44f-13a0dd1d9e4d&quot;)
+                    },
+                    new MedicalFacility()
+                    {
+                        Id=Guid.Parse(&quot;45BDFDD5-8631-4F55-AD58-AA4D62F6A0D4&quot;),
+                        Name = &quot;Regina Maria&quot;,
+                        CityId = Guid.Parse(&quot;451d4ccb-7d3a-11ed-b44f-13a0dd1d9e4d&quot;)
+                    },
+                });
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[10,9,10,10,1],[11,13,11,45,1],[12,13,27,20,1],[28,9,28,10,1]]);
+    </script>
+  </body>
+</html>

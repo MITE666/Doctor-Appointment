@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.API\Program.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointment.Application;
+using DoctorAppointment.Application.Validators;
+using DoctorAppointments.DataAccess;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.OpenApi.Models;
+
+var MyAllowAnyOrigin = &quot;_myAllowSpecificOrigins&quot;;
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =&gt;
+{
+    options.AddPolicy(name: MyAllowAnyOrigin,
+        policy =&gt;
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(config =&gt;
+    config.SwaggerDoc(&quot;v1&quot;, new OpenApiInfo { Title = &quot;WebAPI&quot;, Version = &quot;v1&quot; })
+);
+builder.Services.AddControllers();
+
+builder.Services.AddValidatorsFromAssemblyContaining&lt;UserValidator&gt;();
+builder.Services.AddFluentValidationAutoValidation();
+
+builder.Services.AddDataAccess(builder.Configuration);
+builder.Services.AddApplication(builder.Configuration);
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseCors(MyAllowAnyOrigin);
+
+app.MapControllers();
+
+app.Run();
+
+namespace DoctorAppointment
+{
+    public partial class Program
+    { }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,1,8,50,1],[9,1,9,50,1],[11,1,12,1,1],[12,1,12,2,1],[12,2,13,5,1],[13,5,15,9,1],[15,9,15,10,1],[15,10,16,13,1],[16,13,18,35,1],[18,35,19,9,1],[19,9,19,10,1],[19,10,19,12,1],[19,12,20,1,1],[20,1,20,2,1],[20,2,20,4,1],[22,1,22,44,1],[23,1,24,5,1],[24,5,24,82,1],[24,82,25,3,1],[26,1,26,35,1],[28,1,28,71,1],[29,1,29,54,1],[31,1,31,55,1],[32,1,32,56,1],[34,1,34,27,1],[36,1,36,37,1],[37,1,37,2,1],[38,5,38,22,1],[39,5,39,24,1],[40,1,40,2,1],[42,1,42,27,1],[43,1,43,31,1],[45,1,45,22,1],[47,1,47,11,1]]);
+    </script>
+  </body>
+</html>

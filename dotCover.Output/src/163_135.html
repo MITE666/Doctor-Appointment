@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\Migrations\20221207213318_CreateDB.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace DoctorAppointments.DataAccess.Migrations
+{
+    /// &lt;inheritdoc /&gt;
+    public partial class CreateDB : Migration
+    {
+        /// &lt;inheritdoc /&gt;
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: &quot;Address&quot;,
+                table: &quot;Users&quot;);
+
+            migrationBuilder.DropColumn(
+                name: &quot;FirstName&quot;,
+                table: &quot;Users&quot;);
+
+            migrationBuilder.DropColumn(
+                name: &quot;LastName&quot;,
+                table: &quot;Users&quot;);
+
+            migrationBuilder.DropColumn(
+                name: &quot;PhoneNumber&quot;,
+                table: &quot;Users&quot;);
+
+            migrationBuilder.AddColumn&lt;string&gt;(
+                name: &quot;Email&quot;,
+                table: &quot;Users&quot;,
+                type: &quot;text&quot;,
+                nullable: false,
+                defaultValue: &quot;&quot;);
+
+            migrationBuilder.AddColumn&lt;string&gt;(
+                name: &quot;Password&quot;,
+                table: &quot;Users&quot;,
+                type: &quot;text&quot;,
+                nullable: false,
+                defaultValue: &quot;&quot;);
+
+            migrationBuilder.AddColumn&lt;Guid&gt;(
+                name: &quot;UserTypeId&quot;,
+                table: &quot;Users&quot;,
+                type: &quot;uuid&quot;,
+                nullable: false,
+                defaultValue: new Guid(&quot;00000000-0000-0000-0000-000000000000&quot;));
+
+            migrationBuilder.CreateTable(
+                name: &quot;Billings&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    Descriprion = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false),
+                    Price = table.Column&lt;int&gt;(type: &quot;integer&quot;, nullable: false),
+                    AppointmentId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_Billings&quot;, x =&gt; x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;Cities&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    Name = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_Cities&quot;, x =&gt; x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;MedicationStocks&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    Name = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false),
+                    Quantity = table.Column&lt;int&gt;(type: &quot;integer&quot;, nullable: true),
+                    Price = table.Column&lt;decimal&gt;(type: &quot;numeric&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_MedicationStocks&quot;, x =&gt; x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;Specialties&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    Name = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_Specialties&quot;, x =&gt; x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;UserTypes&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    Type = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_UserTypes&quot;, x =&gt; x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;Pacients&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    UserId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    Phone = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    BirthDate = table.Column&lt;DateTime&gt;(type: &quot;timestamp with time zone&quot;, nullable: false),
+                    FirstName = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    LastName = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    Allergies = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    MedicalHistory = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    ProfilePicture = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    CityId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: true),
+                    Gender = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    Height = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    Weight = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_Pacients&quot;, x =&gt; x.Id);
+                    table.ForeignKey(
+                        name: &quot;FK_Pacients_Cities_CityId&quot;,
+                        column: x =&gt; x.CityId,
+                        principalTable: &quot;Cities&quot;,
+                        principalColumn: &quot;Id&quot;);
+                    table.ForeignKey(
+                        name: &quot;FK_Pacients_Users_UserId&quot;,
+                        column: x =&gt; x.UserId,
+                        principalTable: &quot;Users&quot;,
+                        principalColumn: &quot;Id&quot;,
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;AppointmentPacient&quot;,
+                columns: table =&gt; new
+                {
+                    AppointmentId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    PacientId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_AppointmentPacient&quot;, x =&gt; new { x.AppointmentId, x.PacientId });
+                    table.ForeignKey(
+                        name: &quot;FK_AppointmentPacient_Pacients_PacientId&quot;,
+                        column: x =&gt; x.PacientId,
+                        principalTable: &quot;Pacients&quot;,
+                        principalColumn: &quot;Id&quot;,
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;Appointments&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    DoctorId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    Date = table.Column&lt;DateTime&gt;(type: &quot;timestamp with time zone&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_Appointments&quot;, x =&gt; x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;MedicalFacilities&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    Name = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false),
+                    CityId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    AppointmentId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: true)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_MedicalFacilities&quot;, x =&gt; x.Id);
+                    table.ForeignKey(
+                        name: &quot;FK_MedicalFacilities_Appointments_AppointmentId&quot;,
+                        column: x =&gt; x.AppointmentId,
+                        principalTable: &quot;Appointments&quot;,
+                        principalColumn: &quot;Id&quot;);
+                    table.ForeignKey(
+                        name: &quot;FK_MedicalFacilities_Cities_CityId&quot;,
+                        column: x =&gt; x.CityId,
+                        principalTable: &quot;Cities&quot;,
+                        principalColumn: &quot;Id&quot;,
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;Doctors&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    ProfilePicture = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false),
+                    FirstName = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false),
+                    LastName = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false),
+                    UserId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    MedicalFacilityId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    SpecialtyId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_Doctors&quot;, x =&gt; x.Id);
+                    table.ForeignKey(
+                        name: &quot;FK_Doctors_MedicalFacilities_MedicalFacilityId&quot;,
+                        column: x =&gt; x.MedicalFacilityId,
+                        principalTable: &quot;MedicalFacilities&quot;,
+                        principalColumn: &quot;Id&quot;,
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: &quot;FK_Doctors_Specialties_SpecialtyId&quot;,
+                        column: x =&gt; x.SpecialtyId,
+                        principalTable: &quot;Specialties&quot;,
+                        principalColumn: &quot;Id&quot;,
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: &quot;FK_Doctors_Users_UserId&quot;,
+                        column: x =&gt; x.UserId,
+                        principalTable: &quot;Users&quot;,
+                        principalColumn: &quot;Id&quot;,
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: &quot;MedicalFacilityMedicationStock&quot;,
+                columns: table =&gt; new
+                {
+                    MedicalFacilitiesId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    MedicationsId = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_MedicalFacilityMedicationStock&quot;, x =&gt; new { x.MedicalFacilitiesId, x.MedicationsId });
+                    table.ForeignKey(
+                        name: &quot;FK_MedicalFacilityMedicationStock_MedicalFacilities_MedicalFac~&quot;,
+                        column: x =&gt; x.MedicalFacilitiesId,
+                        principalTable: &quot;MedicalFacilities&quot;,
+                        principalColumn: &quot;Id&quot;,
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: &quot;FK_MedicalFacilityMedicationStock_MedicationStocks_Medications~&quot;,
+                        column: x =&gt; x.MedicationsId,
+                        principalTable: &quot;MedicationStocks&quot;,
+                        principalColumn: &quot;Id&quot;,
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: &quot;UserTypes&quot;,
+                columns: new[] { &quot;Id&quot;, &quot;Type&quot; },
+                values: new object[,]
+                {
+                    { new Guid(&quot;430f6e13-ff63-461f-9f24-4054b2d68bee&quot;), &quot;Doctor&quot; },
+                    { new Guid(&quot;8a16d3e1-dc8d-47d6-b93a-bd7a1d5824ab&quot;), &quot;Patient&quot; }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_Users_UserTypeId&quot;,
+                table: &quot;Users&quot;,
+                column: &quot;UserTypeId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_AppointmentPacient_PacientId&quot;,
+                table: &quot;AppointmentPacient&quot;,
+                column: &quot;PacientId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_Appointments_DoctorId&quot;,
+                table: &quot;Appointments&quot;,
+                column: &quot;DoctorId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_Doctors_MedicalFacilityId&quot;,
+                table: &quot;Doctors&quot;,
+                column: &quot;MedicalFacilityId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_Doctors_SpecialtyId&quot;,
+                table: &quot;Doctors&quot;,
+                column: &quot;SpecialtyId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_Doctors_UserId&quot;,
+                table: &quot;Doctors&quot;,
+                column: &quot;UserId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_MedicalFacilities_AppointmentId&quot;,
+                table: &quot;MedicalFacilities&quot;,
+                column: &quot;AppointmentId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_MedicalFacilities_CityId&quot;,
+                table: &quot;MedicalFacilities&quot;,
+                column: &quot;CityId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_MedicalFacilityMedicationStock_MedicationsId&quot;,
+                table: &quot;MedicalFacilityMedicationStock&quot;,
+                column: &quot;MedicationsId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_Pacients_CityId&quot;,
+                table: &quot;Pacients&quot;,
+                column: &quot;CityId&quot;);
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_Pacients_UserId&quot;,
+                table: &quot;Pacients&quot;,
+                column: &quot;UserId&quot;);
+
+            migrationBuilder.AddForeignKey(
+                name: &quot;FK_Users_UserTypes_UserTypeId&quot;,
+                table: &quot;Users&quot;,
+                column: &quot;UserTypeId&quot;,
+                principalTable: &quot;UserTypes&quot;,
+                principalColumn: &quot;Id&quot;,
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: &quot;FK_AppointmentPacient_Appointments_AppointmentId&quot;,
+                table: &quot;AppointmentPacient&quot;,
+                column: &quot;AppointmentId&quot;,
+                principalTable: &quot;Appointments&quot;,
+                principalColumn: &quot;Id&quot;,
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: &quot;FK_Appointments_Doctors_DoctorId&quot;,
+                table: &quot;Appointments&quot;,
+                column: &quot;DoctorId&quot;,
+                principalTable: &quot;Doctors&quot;,
+                principalColumn: &quot;Id&quot;,
+                onDelete: ReferentialAction.Cascade);
+        }
+
+        /// &lt;inheritdoc /&gt;
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: &quot;FK_Users_UserTypes_UserTypeId&quot;,
+                table: &quot;Users&quot;);
+
+            migrationBuilder.DropForeignKey(
+                name: &quot;FK_MedicalFacilities_Appointments_AppointmentId&quot;,
+                table: &quot;MedicalFacilities&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;AppointmentPacient&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;Billings&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;MedicalFacilityMedicationStock&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;UserTypes&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;Pacients&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;MedicationStocks&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;Appointments&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;Doctors&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;MedicalFacilities&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;Specialties&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;Cities&quot;);
+
+            migrationBuilder.DropIndex(
+                name: &quot;IX_Users_UserTypeId&quot;,
+                table: &quot;Users&quot;);
+
+            migrationBuilder.DropColumn(
+                name: &quot;Email&quot;,
+                table: &quot;Users&quot;);
+
+            migrationBuilder.DropColumn(
+                name: &quot;Password&quot;,
+                table: &quot;Users&quot;);
+
+            migrationBuilder.DropColumn(
+                name: &quot;UserTypeId&quot;,
+                table: &quot;Users&quot;);
+
+            migrationBuilder.AddColumn&lt;string&gt;(
+                name: &quot;Address&quot;,
+                table: &quot;Users&quot;,
+                type: &quot;text&quot;,
+                nullable: true);
+
+            migrationBuilder.AddColumn&lt;string&gt;(
+                name: &quot;FirstName&quot;,
+                table: &quot;Users&quot;,
+                type: &quot;text&quot;,
+                nullable: true);
+
+            migrationBuilder.AddColumn&lt;string&gt;(
+                name: &quot;LastName&quot;,
+                table: &quot;Users&quot;,
+                type: &quot;text&quot;,
+                nullable: true);
+
+            migrationBuilder.AddColumn&lt;string&gt;(
+                name: &quot;PhoneNumber&quot;,
+                table: &quot;Users&quot;,
+                type: &quot;text&quot;,
+                nullable: true);
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,9,14,10,0],[15,13,17,33,0],[19,13,21,33,0],[23,13,25,33,0],[27,13,29,33,0],[31,13,36,35,0],[38,13,43,35,0],[45,13,50,81,0],[52,13,54,35,0],[54,35,60,18,0],[60,18,62,17,0],[62,17,62,18,0],[62,18,63,21,0],[63,21,63,64,0],[63,64,64,17,0],[64,17,64,18,0],[64,18,64,20,0],[66,13,68,35,0],[68,35,72,18,0],[72,18,74,17,0],[74,17,74,18,0],[74,18,75,21,0],[75,21,75,62,0],[75,62,76,17,0],[76,17,76,18,0],[76,18,76,20,0],[78,13,80,35,0],[80,35,86,18,0],[86,18,88,17,0],[88,17,88,18,0],[88,18,89,21,0],[89,21,89,72,0],[89,72,90,17,0],[90,17,90,18,0],[90,18,90,20,0],[92,13,94,35,0],[94,35,98,18,0],[98,18,100,17,0],[100,17,100,18,0],[100,18,101,21,0],[101,21,101,67,0],[101,67,102,17,0],[102,17,102,18,0],[102,18,102,20,0],[104,13,106,35,0],[106,35,110,18,0],[110,18,112,17,0],[112,17,112,18,0],[112,18,113,21,0],[113,21,113,65,0],[113,65,114,17,0],[114,17,114,18,0],[114,18,114,20,0],[116,13,118,35,0],[118,35,133,18,0],[133,18,135,17,0],[135,17,135,18,0],[135,18,136,21,0],[136,21,136,64,0],[136,64,137,21,0],[137,21,141,48,0],[141,48,142,21,0],[142,21,147,62,0],[147,62,148,17,0],[148,17,148,18,0],[148,18,148,20,0],[150,13,152,35,0],[152,35,156,18,0],[156,18,158,17,0],[158,17,158,18,0],[158,18,159,21,0],[159,21,159,106,0],[159,106,160,21,0],[160,21,165,62,0],[165,62,166,17,0],[166,17,166,18,0],[166,18,166,20,0],[168,13,170,35,0],[170,35,175,18,0],[175,18,177,17,0],[177,17,177,18,0],[177,18,178,21,0],[178,21,178,68,0],[178,68,179,17,0],[179,17,179,18,0],[179,18,179,20,0],[181,13,183,35,0],[183,35,189,18,0],[189,18,191,17,0],[191,17,191,18,0],[191,18,192,21,0],[192,21,192,73,0],[192,73,193,21,0],[193,21,197,48,0],[197,48,198,21,0],[198,21,203,62,0],[203,62,204,17,0],[204,17,204,18,0],[204,18,204,20,0],[206,13,208,35,0],[208,35,217,18,0],[217,18,219,17,0],[219,17,219,18,0],[219,18,220,21,0],[220,21,220,63,0],[220,63,221,21,0],[221,21,226,62,0],[226,62,227,21,0],[227,21,232,62,0],[232,62,233,21,0],[233,21,238,62,0],[238,62,239,17,0],[239,17,239,18,0],[239,18,239,20,0],[241,13,243,35,0],[243,35,247,18,0],[247,18,249,17,0],[249,17,249,18,0],[249,18,250,21,0],[250,21,250,128,0],[250,128,251,21,0],[251,21,256,62,0],[256,62,257,21,0],[257,21,262,62,0],[262,62,263,17,0],[263,17,263,18,0],[263,18,263,20,0],[265,13,272,20,0],[274,13,277,39,0],[279,13,282,38,0],[284,13,287,37,0],[289,13,292,46,0],[294,13,297,40,0],[299,13,302,35,0],[304,13,307,42,0],[309,13,312,35,0],[314,13,317,42,0],[319,13,322,35,0],[324,13,327,35,0],[329,13,335,54,0],[337,13,343,54,0],[345,13,351,54,0],[352,9,352,10,0],[356,9,356,10,0],[357,13,359,33,0],[361,13,363,45,0],[365,13,366,45,0],[368,13,369,35,0],[371,13,372,57,0],[374,13,375,36,0],[377,13,378,35,0],[380,13,381,43,0],[383,13,384,39,0],[386,13,387,34,0],[389,13,390,44,0],[392,13,393,38,0],[395,13,396,33,0],[398,13,400,33,0],[402,13,404,33,0],[406,13,408,33,0],[410,13,412,33,0],[414,13,418,33,0],[420,13,424,33,0],[426,13,430,33,0],[432,13,436,33,0],[437,9,437,10,0]]);
+    </script>
+  </body>
+</html>

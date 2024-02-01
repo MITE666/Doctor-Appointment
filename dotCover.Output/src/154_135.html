@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Repositories\Implementation\CityRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Persistence;
+using Microsoft.EntityFrameworkCore;
+
+namespace DoctorAppointments.DataAccess.Repositories.Implementation
+{
+    public class CityRepository : ICityRepository
+    {
+        private readonly DatabaseContext _databaseContext;
+
+        public CityRepository(DatabaseContext databaseContext)
+        {
+            _databaseContext = databaseContext;
+        }
+
+        public async Task&lt;IEnumerable&lt;City&gt;&gt; GetCitiesByRegionAsync(Guid regionId)
+        {
+            return await _databaseContext.Cities.Where(x =&gt; x.RegionId == regionId).ToListAsync();
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,9,11,63,0],[12,9,12,10,0],[13,13,13,48,0],[14,9,14,10,0],[17,9,17,10,0],[18,13,18,99,0],[19,9,19,10,0]]);
+    </script>
+  </body>
+</html>

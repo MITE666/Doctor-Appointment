@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>MedicationStockServiceTests</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Test</ProjectType>
+  <ProjectGuid>0586d059-9a75-4497-836d-7e144f1b6dfb</ProjectGuid>
+  <FullPath>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\MedicationStockServiceTests\MedicationStockServiceTests.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\.sonarqube\conf\24\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\.sonarqube\out\24\Issues.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\.sonarqube\out\24</Property>
+  </AnalysisSettings>
+  <Configuration>Debug</Configuration>
+  <Platform>AnyCPU</Platform>
+  <TargetFramework>net7.0</TargetFramework>
+</ProjectInfo>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\Configurations\SpecialityConfiguration.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace DoctorAppointments.DataAccess.Persistence.Configurations;
+
+public class SpecialityConfiguration : IEntityTypeConfiguration&lt;Specialty&gt;
+{
+    public void Configure(EntityTypeBuilder&lt;Specialty&gt; builder)
+    {
+        builder.HasKey(type =&gt; type.Id);
+        builder.HasData(
+            new[]
+            {
+                new Specialty()
+                {
+                    Id=Guid.Parse(&quot;ba9c9af3-a17a-4863-99d1-75892e6987ca&quot;),
+                    Name = &quot;Dermatology&quot;
+                },
+                new Specialty()
+                {
+                    Id=Guid.Parse(&quot;20d8ed61-3b25-4b89-8724-bfff53dd8c43&quot;),
+                    Name = &quot;Emergency medicine&quot;
+                },
+                new Specialty()
+                {
+                    Id=Guid.Parse(&quot;d2147f37-b602-4a33-b29b-a5afbf844d4f&quot;),
+                    Name = &quot;Family medicine&quot;
+                },
+                new Specialty()
+                {
+                    Id=Guid.Parse(&quot;f2bfd52b-cbdd-4f90-afc8-d6f2bf903ab6&quot;),
+                    Name = &quot;Ophthalmology&quot;
+                },
+                new Specialty()
+                {
+                    Id=Guid.Parse(&quot;b8cfaf4a-2be7-46b6-a30d-9156947623e9&quot;),
+                    Name = &quot;Surgery&quot;
+                },
+                new Specialty()
+                {
+                    Id=Guid.Parse(&quot;410ba8be-0848-4fc2-9e15-19d883c0f19f&quot;),
+                    Name = &quot;Pediatrics&quot;
+                }
+            });
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[10,5,10,6,1],[11,9,11,41,1],[12,9,45,16,1],[46,5,46,6,1]]);
+    </script>
+  </body>
+</html>

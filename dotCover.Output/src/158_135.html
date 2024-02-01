@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Repositories\Implementation\PacientRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Persistence;
+using Microsoft.EntityFrameworkCore;
+
+namespace DoctorAppointments.DataAccess.Repositories.Implementation;
+
+public class PacientRepository : IPacientRepository
+{
+    private readonly DatabaseContext _databaseContext;
+
+    public PacientRepository(DatabaseContext databaseContext)
+    {
+        _databaseContext = databaseContext;
+    }
+
+    public async Task&lt;Pacient?&gt; GetPacientById(Guid id)
+    {
+        return await Task.Run(() =&gt; _databaseContext.Pacients
+            .Include(x =&gt; x.City)
+            .Where(x =&gt; x.Id == id).SingleOrDefaultAsync());
+    }
+
+    public async Task&lt;List&lt;Pacient&gt;&gt; GetAllPacients()
+    {
+        return await _databaseContext.Pacients.Include(x =&gt; x.City).ToListAsync();
+    }
+
+    public async Task&lt;Pacient&gt; AddPacient(Pacient pacient)
+    {
+        await _databaseContext.Pacients.AddAsync(pacient);
+        pacient.City = (await _databaseContext.Cities.FindAsync(pacient.CityId))!;
+        await Save();
+        return pacient;
+    }
+
+    public async Task&lt;Pacient&gt; UpdatePacient(Pacient pacient)
+    {
+        var result = await _databaseContext.Pacients.Where(x =&gt; x.Id == pacient.Id).AsNoTracking().SingleOrDefaultAsync();
+        if (result != null)
+        {
+            return result;
+        }
+        _databaseContext.Pacients.Update(pacient);
+        await Save();
+        return pacient;
+    }
+
+    public async Task&lt;bool&gt; DeletePacient(Guid id)
+    {
+        var pacient = await GetPacientById(id);
+        if (pacient == null)
+        {
+            return false;
+        }
+        _databaseContext.Remove(pacient);
+        await Save();
+        return true;
+    }
+
+    public async Task Save()
+    {
+        await _databaseContext.SaveChangesAsync();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,5,11,62,1],[12,5,12,6,1],[13,9,13,44,1],[14,5,14,6,1],[17,5,17,6,0],[18,9,18,37,0],[18,37,20,59,0],[20,59,20,61,0],[21,5,21,6,0],[24,5,24,6,1],[25,9,25,83,1],[26,5,26,6,1],[29,5,29,6,0],[30,9,30,59,0],[31,9,31,83,0],[32,9,32,22,0],[33,9,33,24,0],[34,5,34,6,0],[37,5,37,6,0],[38,9,38,123,0],[39,9,39,28,0],[40,9,40,10,0],[41,13,41,27,0],[43,9,43,51,0],[44,9,44,22,0],[45,9,45,24,0],[46,5,46,6,0],[49,5,49,6,0],[50,9,50,48,0],[51,9,51,29,0],[52,9,52,10,0],[53,13,53,26,0],[55,9,55,42,0],[56,9,56,22,0],[57,9,57,21,0],[58,5,58,6,0],[61,5,61,6,0],[62,9,62,51,0],[63,5,63,6,0]]);
+    </script>
+  </body>
+</html>

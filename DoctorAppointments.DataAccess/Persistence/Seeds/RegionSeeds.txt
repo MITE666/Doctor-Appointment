@@ -1,0 +1,5 @@
+﻿INSERT INTO public."Regions" ("Id","Name") VALUES ('8f91dbfc-ff20-4821-998a-907204b712d7', 'Iasi');
+INSERT INTO public."Regions" ("Id","Name") VALUES ('a3979bd8-0090-49bb-9fd7-180c12f08fc4', 'Bacau');
+INSERT INTO public."Regions" ("Id","Name") VALUES ('4869a144-207e-4154-b491-cf7e7e6857e9', 'Suceava');
+
+

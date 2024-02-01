@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorIntegrationTests\Common\DoctorSeeding.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Persistence;
+
+namespace DoctorIntegrationTests.Common
+{
+    internal class DoctorSeeding
+    {
+        public static void InitializeDbForTests(DatabaseContext db)
+        {
+            db.Doctors.AddRange(GetSeedingDoctors());
+            db.SaveChanges();
+        }
+
+        public static void ReinitializeDbForTests(DatabaseContext db)
+        {
+            db.Doctors.RemoveRange(db.Doctors);
+            InitializeDbForTests(db);
+        }
+
+
+        public static List&lt;Doctor&gt; GetSeedingDoctors()
+        {
+            return new List&lt;Doctor&gt;();
+
+        }
+
+    }
+}
+
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[9,9,9,10,1],[10,13,10,54,1],[11,13,11,30,1],[12,9,12,10,1],[15,9,15,10,0],[16,13,16,48,0],[17,13,17,38,0],[18,9,18,10,0],[22,9,22,10,1],[23,13,23,39,1],[25,9,25,10,1]]);
+    </script>
+  </body>
+</html>

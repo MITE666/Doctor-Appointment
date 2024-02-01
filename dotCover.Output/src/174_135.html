@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\DatabaseContext.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+
+namespace DoctorAppointments.DataAccess.Persistence;
+
+public class DatabaseContext : DbContext
+{
+    public DatabaseContext(DbContextOptions options) : base(options)
+    {
+    }
+
+    public DbSet&lt;User&gt; Users { get; set; }
+    public DbSet&lt;Pacient&gt; Pacients { get; set; }
+    public DbSet&lt;Appointment&gt; Appointments { get; set; }
+    public DbSet&lt;Billing&gt; Billings { get; set; }
+    public DbSet&lt;City&gt; Cities { get; set; }
+    public DbSet&lt;MedicalFacility&gt; MedicalFacilities { get; set; }
+    public DbSet&lt;MedicationStock&gt; MedicationStocks { get; set; }
+    public DbSet&lt;Specialty&gt; Specialties { get; set; }
+    public DbSet&lt;Doctor&gt; Doctors { get; set; }
+    public DbSet&lt;UserType&gt; UserTypes { get; set; }
+    public DbSet&lt;Region&gt; Regions { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[9,56,9,69,1],[10,5,10,6,1],[11,5,11,6,1],[13,32,13,36,1],[13,37,13,41,1],[14,38,14,42,1],[14,43,14,47,1],[15,46,15,50,0],[15,51,15,55,1],[16,38,16,42,0],[16,43,16,47,1],[17,33,17,37,0],[17,38,17,42,1],[18,55,18,59,1],[18,60,18,64,1],[19,54,19,58,1],[19,59,19,63,1],[20,43,20,47,0],[20,48,20,52,1],[21,36,21,40,1],[21,41,21,45,1],[22,40,22,44,1],[22,45,22,49,1],[23,36,23,40,0],[23,41,23,45,1],[26,5,26,6,1],[27,9,27,87,1],[28,9,28,44,1],[29,5,29,6,1]]);
+    </script>
+  </body>
+</html>

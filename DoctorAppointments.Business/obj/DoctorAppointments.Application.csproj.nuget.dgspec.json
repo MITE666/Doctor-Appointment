@@ -1,0 +1,240 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.Business\\DoctorAppointments.Application.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointment.Common\\DoctorAppointment.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointment.Common\\DoctorAppointment.Common.csproj",
+        "projectName": "DoctorAppointment.Common",
+        "projectPath": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointment.Common\\DoctorAppointment.Common.csproj",
+        "packagesPath": "C:\\Users\\MITE666\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointment.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\MITE666\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.Business\\DoctorAppointments.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.Business\\DoctorAppointments.Application.csproj",
+        "projectName": "DoctorAppointments.Application",
+        "projectPath": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.Business\\DoctorAppointments.Application.csproj",
+        "packagesPath": "C:\\Users\\MITE666\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.Business\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\MITE666\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointment.Common\\DoctorAppointment.Common.csproj": {
+                "projectPath": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointment.Common\\DoctorAppointment.Common.csproj"
+              },
+              "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.DataAccess\\DoctorAppointments.DataAccess.csproj": {
+                "projectPath": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.DataAccess\\DoctorAppointments.DataAccess.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.4.0, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.2.2, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[41.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.DataAccess\\DoctorAppointments.DataAccess.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.DataAccess\\DoctorAppointments.DataAccess.csproj",
+        "projectName": "DoctorAppointments.DataAccess",
+        "projectPath": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.DataAccess\\DoctorAppointments.DataAccess.csproj",
+        "packagesPath": "C:\\Users\\MITE666\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MITE666\\Desktop\\Doctor-Appointment-main\\Backend\\DoctorAppointment\\DoctorAppointments.DataAccess\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\MITE666\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

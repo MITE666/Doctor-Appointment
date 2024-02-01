@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\ServiceCollection.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Persistence;
+using DoctorAppointments.DataAccess.Repositories;
+using DoctorAppointments.DataAccess.Repositories.Implementation;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace DoctorAppointments.DataAccess;
+
+public static class ServiceCollection
+{
+    public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext&lt;DatabaseContext&gt;(options =&gt;
+        {
+            options.UseNpgsql(configuration[&quot;Database:ConnectionString&quot;]);
+        });
+
+        services.AddScoped&lt;IUserRepository, UserRepository&gt;();
+
+        services.AddScoped&lt;IDoctorRepository, DoctorRepository&gt;();
+        services.AddScoped&lt;IPacientRepository, PacientRepository&gt;();
+        services.AddScoped&lt;IMedicationStockRepository, MedicationStockRepository&gt;();
+        services.AddScoped&lt;IMedicalFacilityRepository, MedicalFacilityRepository&gt;();
+        services.AddScoped&lt;IRegionRepository, RegionRepository&gt;();
+        services.AddScoped&lt;ICityRepository, CityRepository&gt;();
+
+        return services;
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[13,5,13,6,1],[14,9,15,9,1],[15,9,15,10,0],[15,10,16,13,1],[16,13,16,75,0],[16,75,17,9,1],[17,9,17,10,0],[17,10,17,12,1],[19,9,19,63,1],[21,9,21,67,1],[22,9,22,69,1],[23,9,23,85,1],[24,9,24,85,1],[25,9,25,67,1],[26,9,26,63,1],[28,9,28,25,1],[29,5,29,6,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.Business\Validators\PacientValidator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Text.RegularExpressions;
+using DoctorAppointment.Application.Models;
+using FluentValidation;
+
+namespace DoctorAppointment.Application.Validators
+{
+    public class PacientValidator : AbstractValidator&lt;PacientRequestModel&gt;
+
+    {
+        public PacientValidator()
+        {
+            ClassLevelCascadeMode = CascadeMode.Stop;
+            RuleFor(p =&gt; p.CNP).NotNull()
+                .Matches(
+                    &quot;^[1-9]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)(00[1-9]|0[1-9]\\d|[1-9]\\d\\d)\\d$&quot;)
+                .WithMessage(&quot;Not a valid CNP format!&quot;);
+            RuleFor(p=&gt; p.FirstName).NotNull();
+            RuleFor(p =&gt; p.LastName).NotNull();
+            RuleFor(p =&gt; p.Phone).NotEmpty()
+                .NotNull().WithMessage(&quot;Phone Number is required.&quot;)
+                .MinimumLength(10).WithMessage(&quot;PhoneNumber must not be less than 10 characters.&quot;)
+                .MaximumLength(20).WithMessage(&quot;PhoneNumber must not exceed 50 characters.&quot;)
+                .Matches(@&quot;((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}&quot;).WithMessage(&quot;PhoneNumber not valid&quot;);
+            RuleFor(p =&gt; p.BirthDate)
+                .NotEmpty().WithMessage(&quot;Birthdate cannot be empty!&quot;)
+                .LessThan(p =&gt; DateTime.Now).WithMessage(&quot;Birthdate cannot be past present&quot;);
+            RuleFor(p =&gt; p.UserId).NotNull().WithMessage(&quot;UserId is empty&quot;);
+
+        }
+
+
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[10,9,10,34,0],[11,9,11,10,0],[12,13,12,54,0],[13,13,16,57,0],[17,13,17,48,0],[18,13,18,48,0],[19,13,23,104,0],[24,13,26,94,0],[27,13,27,77,0],[29,9,29,10,0]]);
+    </script>
+  </body>
+</html>

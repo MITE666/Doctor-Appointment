@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.Business\Validators\UserValidator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointment.Application.Models;
+using FluentValidation;
+
+namespace DoctorAppointment.Application.Validators
+{
+    public class UserValidator : AbstractValidator&lt;UserRequestModel&gt;
+
+    {
+        public UserValidator()
+        {
+            ClassLevelCascadeMode = CascadeMode.Stop;
+            RulesForEmail();
+            RulesForPassword();
+        }
+
+        private void RulesForEmail()
+        {
+            RuleFor(patient =&gt; patient.Email).NotEmpty().WithMessage(&quot;Email cannot be Empty&quot;);
+            RuleFor(patient =&gt; patient.Email).NotNull().WithMessage(&quot;Email cannot be null&quot;);
+            RuleFor(patient =&gt; patient.Email).EmailAddress().WithMessage(&quot;String provided is not an email&quot;);
+        }
+
+        private void RulesForPassword()
+        {
+            RuleFor(patient =&gt; patient.Password).NotEmpty().WithMessage(&quot;Password cannot be Empty&quot;);
+            RuleFor(patient =&gt; patient.Password).NotNull().WithMessage(&quot;Password cannot be null&quot;);
+            RuleFor(patient =&gt; patient.Password).Must(ValidatePassword).WithMessage(&quot;Password must contain a number and a special character&quot;);
+        }
+
+        private bool ValidatePassword(string password)
+        {
+            if (!password.Any(char.IsDigit))
+            {
+                return false;
+            }
+
+            if (!password.Any(x =&gt; !char.IsLetterOrDigit(x) &amp;&amp; !char.IsWhiteSpace(x)))
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[9,9,9,31,1],[10,9,10,10,1],[11,13,11,54,1],[12,13,12,29,1],[13,13,13,32,1],[14,9,14,10,1],[17,9,17,10,1],[18,13,18,95,1],[19,13,19,93,1],[20,13,20,109,1],[21,9,21,10,1],[24,9,24,10,1],[25,13,25,101,1],[26,13,26,99,1],[27,13,27,143,1],[28,9,28,10,1],[31,9,31,10,1],[32,13,32,45,1],[33,13,33,14,0],[34,17,34,30,0],[37,13,37,36,1],[37,36,37,85,1],[37,85,37,87,1],[38,13,38,14,1],[39,17,39,30,1],[42,13,42,25,1],[43,9,43,10,1]]);
+    </script>
+  </body>
+</html>

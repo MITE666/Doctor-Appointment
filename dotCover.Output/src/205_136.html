@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.Business\Services\Implementation\UserService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoMapper;
+using DoctorAppointment.Application.Models;
+using DoctorAppointment.Common;
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Repositories;
+
+namespace DoctorAppointment.Application.Services.Implementation
+{
+    public class UserService : IUserService
+    {
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+
+        public UserService(IUserRepository userRepository, IMapper mapper)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
+        }
+
+        public async Task&lt;ApiResponse&lt;UserResponseModel&gt;&gt; AddUser(UserRequestModel userRequestModel)
+        {
+            var user = _mapper.Map&lt;User&gt;(userRequestModel);
+            user = await _userRepository.AddUser(user);
+            if (user == null)
+            {
+                return ApiResponse&lt;UserResponseModel&gt;.Fail(&quot;Could not add user&quot;);
+            }
+            return ApiResponse&lt;UserResponseModel&gt;.Success(_mapper.Map&lt;UserResponseModel&gt;(user));
+        }
+
+        public async Task&lt;ApiResponse&lt;bool&gt;&gt; DeleteUser(Guid id)
+        {
+            var result = await _userRepository.DeleteUser(id);
+
+            if (result)
+                return ApiResponse&lt;bool&gt;.Success(true);
+
+            return ApiResponse&lt;bool&gt;.Fail(&quot;User not found&quot;);
+        }
+
+        public async Task&lt;ApiResponse&lt;List&lt;UserResponseModel&gt;&gt;&gt; GetAllUsers()
+        {
+            var users = await _userRepository.GetAllUsers();
+            if (users.Count == 0)
+            {
+                return ApiResponse&lt;List&lt;UserResponseModel&gt;&gt;.Fail(&quot;Could not find any users in db&quot;);
+            }
+            var mappedUser = _mapper.Map&lt;List&lt;UserResponseModel&gt;&gt;(users);
+            return ApiResponse&lt;List&lt;UserResponseModel&gt;&gt;.Success(mappedUser);
+        }
+
+        public async Task&lt;ApiResponse&lt;UserResponseModel&gt;&gt; GetUserById(Guid id)
+        {
+            var user = await _userRepository.GetUserById(id);
+            if (user == null)
+            {
+                return ApiResponse&lt;UserResponseModel&gt;.Fail(&quot;Could not find user in db&quot;);
+            }
+            return ApiResponse&lt;UserResponseModel&gt;.Success(_mapper.Map&lt;UserResponseModel&gt;(user));
+        }
+
+        public async Task&lt;ApiResponse&lt;UserResponseModel&gt;&gt; UpdateUser(User user)
+        {
+            var result = await _userRepository.UpdateUser(user);
+            if (result == null)
+            {
+                return ApiResponse&lt;UserResponseModel&gt;.Fail(&quot;User not found&quot;);
+            }
+            return ApiResponse&lt;UserResponseModel&gt;.Success(_mapper.Map&lt;UserResponseModel&gt;(result));
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,9,14,75,1],[15,9,15,10,1],[16,13,16,46,1],[17,13,17,30,1],[18,9,18,10,1],[21,9,21,10,1],[22,13,22,60,1],[23,13,23,56,1],[24,13,24,30,1],[25,13,25,14,1],[26,17,26,82,1],[28,13,28,97,1],[29,9,29,10,1],[32,9,32,10,1],[33,13,33,63,1],[35,13,35,24,1],[36,17,36,56,1],[38,13,38,61,1],[39,9,39,10,1],[42,9,42,10,1],[43,13,43,61,1],[44,13,44,34,1],[45,13,45,14,1],[46,17,46,100,1],[48,13,48,74,1],[49,13,49,77,1],[50,9,50,10,1],[53,9,53,10,1],[54,13,54,62,1],[55,13,55,30,1],[56,13,56,14,1],[57,17,57,89,1],[59,13,59,97,1],[60,9,60,10,1],[63,9,63,10,1],[64,13,64,65,1],[65,13,65,32,1],[66,13,66,14,1],[67,17,67,78,1],[69,13,69,99,1],[70,9,70,10,1]]);
+    </script>
+  </body>
+</html>

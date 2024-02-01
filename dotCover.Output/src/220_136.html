@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.Business\Mapping\UserProfile.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoMapper;
+using DoctorAppointment.Application.Models;
+using DoctorAppointments.DataAccess.Entities;
+
+namespace DoctorAppointment.Application.Mapping
+{
+    public class UserProfile : Profile
+    {
+        public UserProfile()
+        {
+            this.CreateMap&lt;User, UserResponseModel&gt;().ForMember(dest =&gt; dest.UserType, dest =&gt; dest.MapFrom(source =&gt; source.UserType.Type));
+            this.CreateMap&lt;UserRequestModel, User&gt;();
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[9,9,9,29,1],[10,9,10,10,1],[11,13,11,96,1],[11,96,11,140,1],[11,140,11,142,1],[12,13,12,54,1],[13,9,13,10,1]]);
+    </script>
+  </body>
+</html>

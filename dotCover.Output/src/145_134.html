@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.API\Controllers\CityController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointment.Application.Services;
+using Microsoft.AspNetCore.Mvc;
+
+namespace DoctorAppointment.Controllers
+{
+    [Route(&quot;api/[controller]&quot;)]
+    [ApiController]
+    public class CityController : ControllerBase
+    {
+        private readonly ICityService _cityService;
+
+        public CityController(ICityService cityService)
+        {
+            _cityService = cityService;
+        }
+
+        [HttpGet(&quot;{regionId:guid}&quot;)]
+        public async Task&lt;IActionResult&gt; GetAll(Guid regionId)
+        {
+            var response = await _cityService.GetCitiesAfterRegionAsync(regionId);
+
+            if (response.Succeeded == false)
+            {
+                return BadRequest(&quot;No regions in the database&quot;);
+            }
+            return Ok(response);
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,9,12,56,0],[13,9,13,10,0],[14,13,14,40,0],[15,9,15,10,0],[19,9,19,10,0],[20,13,20,83,0],[22,13,22,45,0],[23,13,23,14,0],[24,17,24,65,0],[26,13,26,33,0],[27,9,27,10,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\Migrations\20221216120857_AddMedicalFacilityConfig.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace DoctorAppointments.DataAccess.Migrations
+{
+    /// &lt;inheritdoc /&gt;
+    public partial class AddMedicalFacilityConfig : Migration
+    {
+        /// &lt;inheritdoc /&gt;
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.InsertData(
+                table: &quot;MedicalFacilities&quot;,
+                columns: new[] { &quot;Id&quot;, &quot;CityId&quot;, &quot;Name&quot; },
+                values: new object[,]
+                {
+                    { new Guid(&quot;45bdfdd5-8631-4f55-ad58-aa4d62f6a0d4&quot;), new Guid(&quot;451d4ccb-7d3a-11ed-b44f-13a0dd1d9e4d&quot;), &quot;Regina Maria&quot; },
+                    { new Guid(&quot;4da05e2d-f887-466c-80ad-89cf1c0a0e8f&quot;), new Guid(&quot;451d4ccb-7d3a-11ed-b44f-13a0dd1d9e4d&quot;), &quot;Arcadia&quot; }
+                });
+        }
+
+        /// &lt;inheritdoc /&gt;
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DeleteData(
+                table: &quot;MedicalFacilities&quot;,
+                keyColumn: &quot;Id&quot;,
+                keyValue: new Guid(&quot;45bdfdd5-8631-4f55-ad58-aa4d62f6a0d4&quot;));
+
+            migrationBuilder.DeleteData(
+                table: &quot;MedicalFacilities&quot;,
+                keyColumn: &quot;Id&quot;,
+                keyValue: new Guid(&quot;4da05e2d-f887-466c-80ad-89cf1c0a0e8f&quot;));
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,9,14,10,0],[15,13,22,20,0],[23,9,23,10,0],[27,9,27,10,0],[28,13,31,77,0],[33,13,36,77,0],[37,9,37,10,0]]);
+    </script>
+  </body>
+</html>

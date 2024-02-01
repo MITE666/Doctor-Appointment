@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Repositories\Implementation\UserRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Persistence;
+using Microsoft.EntityFrameworkCore;
+
+namespace DoctorAppointments.DataAccess.Repositories.Implementation;
+
+public class UserRepository : IUserRepository
+{
+    private readonly DatabaseContext _databaseContext;
+
+    public UserRepository(DatabaseContext databaseContext)
+    {
+        _databaseContext = databaseContext;
+    }
+
+    public async Task&lt;User?&gt; GetUserById(Guid id)
+    {
+        var user = await _databaseContext.Users.FindAsync(id);
+        if (user == null)
+        {
+            return null;
+        }
+
+        var userTypeId = await _databaseContext.UserTypes.FindAsync(user.UserTypeId);
+        if (userTypeId == null)
+        {
+            return null;
+        }
+
+        user.UserType = userTypeId;
+        return user;
+    }
+
+    public async Task&lt;List&lt;User&gt;&gt; GetAllUsers()
+    {
+        return (await _databaseContext.Users.Include(x =&gt; x.UserType).ToListAsync())!;
+    }
+
+    public async Task&lt;User?&gt; AddUser(User user)
+    {
+        var result = await _databaseContext.UserTypes.Where(x =&gt; x.Id == user.UserTypeId).SingleOrDefaultAsync();
+        if (result == default)
+            return null;
+        await _databaseContext.Users.AddAsync(user);
+        await Save();
+        user.UserType = result;
+        return user;
+    }
+
+    public async Task&lt;User?&gt; UpdateUser(User user)
+    {
+        var result = await _databaseContext.Users.Where(x =&gt; x.Id == user.Id).AsNoTracking().SingleOrDefaultAsync();
+        if (result == default)
+            return null;
+        _databaseContext.Users.Update(user);
+        await Save();
+        return user;
+    }
+
+    public async Task&lt;bool&gt; DeleteUser(Guid id)
+    {
+        var user = await GetUserById(id);
+        if (user == null) return false;
+        _databaseContext.Users.Remove(user);
+        await Save();
+        return true;
+    }
+
+    public async Task Save()
+    {
+        await _databaseContext.SaveChangesAsync();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,5,11,59,1],[12,5,12,6,1],[13,9,13,44,1],[14,5,14,6,1],[17,5,17,6,1],[18,9,18,63,1],[19,9,19,26,1],[20,9,20,10,1],[21,13,21,25,1],[24,9,24,86,1],[25,9,25,32,1],[26,9,26,10,0],[27,13,27,25,0],[30,9,30,36,1],[31,9,31,21,1],[32,5,32,6,1],[35,5,35,6,1],[36,9,36,87,1],[37,5,37,6,1],[40,5,40,6,1],[41,9,41,114,1],[42,9,42,31,1],[43,13,43,25,0],[44,9,44,53,1],[45,9,45,22,1],[46,9,46,32,1],[47,9,47,21,1],[48,5,48,6,1],[51,5,51,6,1],[52,9,52,117,1],[53,9,53,31,1],[54,13,54,25,0],[55,9,55,45,1],[56,9,56,22,1],[57,9,57,21,1],[58,5,58,6,1],[61,5,61,6,1],[62,9,62,42,1],[63,9,63,26,1],[63,27,63,40,1],[64,9,64,45,1],[65,9,65,22,1],[66,9,66,21,1],[67,5,67,6,1],[70,5,70,6,1],[71,9,71,51,1],[72,5,72,6,1]]);
+    </script>
+  </body>
+</html>

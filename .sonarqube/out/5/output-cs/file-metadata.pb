@@ -1,0 +1,10 @@
+y
+pC:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\PacientServiceTests\PacientServiceTests.csutf-8l
+cC:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\PacientServiceTests\Usings.csutf-8~
+sC:\Users\oencut\.nuget\packages\microsoft.net.test.sdk\17.3.2\build\netcoreapp2.1\Microsoft.NET.Test.Sdk.Program.csutf-8ú
+êC:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\PacientServiceTests\obj\Debug\net7.0\PacientServiceTests.GlobalUsings.g.csutf-8•
+ôC:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\PacientServiceTests\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.csutf-8ö
+éC:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\PacientServiceTests\obj\Debug\net7.0\PacientServiceTests.AssemblyInfo.csutf-8w
+lMicrosoft.Interop.JavaScript.JSImportGenerator\Microsoft.Interop.JavaScript.JSExportGenerator\JSExports.g.csutf-8w
+lMicrosoft.Interop.JavaScript.JSImportGenerator\Microsoft.Interop.JavaScript.JSImportGenerator\JSImports.g.csutf-8p
+eMicrosoft.Interop.LibraryImportGenerator\Microsoft.Interop.LibraryImportGenerator\LibraryImports.g.csutf-8

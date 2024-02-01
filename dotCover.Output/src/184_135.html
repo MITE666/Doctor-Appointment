@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Entities\Doctor.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace DoctorAppointments.DataAccess.Entities;
+
+#pragma warning disable 8618
+
+public class Doctor : Entity
+{
+    public string CNP { get; set; }
+    public string ProfilePicture { get; set; }
+
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+
+    public Guid UserId { get; set; }
+
+    public User User { get; set; }
+
+    public Guid MedicalFacilityId { get; set; }
+
+    public MedicalFacility MedicalFacility { get; set; }
+
+    public Guid SpecialtyId { get; set; }
+
+    public Specialty Specialty { get; set; }
+
+    public IEnumerable&lt;Appointment&gt; Appointments { get; set; }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[7,25,7,29,1],[7,30,7,34,1],[8,36,8,40,1],[8,41,8,45,1],[10,31,10,35,1],[10,36,10,40,1],[12,30,12,34,1],[12,35,12,39,1],[14,26,14,30,0],[14,31,14,35,1],[16,24,16,28,0],[16,29,16,33,0],[18,37,18,41,0],[18,42,18,46,1],[20,46,20,50,1],[20,51,20,55,0],[22,31,22,35,0],[22,36,22,40,1],[24,34,24,38,1],[24,39,24,43,0],[26,52,26,56,1],[26,57,26,61,0]]);
+    </script>
+  </body>
+</html>

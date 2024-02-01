@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\UserIntegrationTests\Common\UserSeeding.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Persistence;
+
+namespace UserIntegrationTests.Common
+{
+    public class UserSeeding
+    {
+        public static void InitializeDbForTests(DatabaseContext db)
+        {
+            db.Users.AddRange(GetSeedingUsers());
+            db.SaveChanges();
+        }
+
+        public static void ReinitializeDbForTests(DatabaseContext db)
+        {
+            db.Users.RemoveRange(db.Users);
+            InitializeDbForTests(db);
+        }
+
+        public static List&lt;User&gt; GetSeedingUsers()
+        {
+            return new List&lt;User&gt;()
+           {
+                new User
+                {
+                    Id=Guid.Parse(&quot;A825BD63-F0DB-4CB1-8FB4-AD698EF7E23B&quot;),
+                    UserTypeId = Guid.Parse(&quot;8A16D3E1-DC8D-47D6-B93A-BD7A1D5824AB&quot;),
+                    Email=&quot;email@email.com&quot;,
+                    Password=&quot;Parola123&quot;
+                },
+                new User
+                {
+                    Id=Guid.Parse(&quot;15BF17E5-2D7D-42B5-8EBF-FC99B2D04D19&quot;),
+                    UserTypeId =Guid.Parse(&quot;430F6E13-FF63-461F-9F24-4054B2D68BEE&quot;),
+                    Email=&quot;email@email.com&quot;,
+                    Password=&quot;Parola123&quot;
+                }
+            };
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[9,9,9,10,1],[10,13,10,50,1],[11,13,11,30,1],[12,9,12,10,1],[15,9,15,10,0],[16,13,16,44,0],[17,13,17,38,0],[18,9,18,10,0],[21,9,21,10,1],[22,13,38,15,1],[39,9,39,10,1]]);
+    </script>
+  </body>
+</html>

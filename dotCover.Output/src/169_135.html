@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\Migrations\20221213152141_AddRegionTable.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace DoctorAppointments.DataAccess.Migrations
+{
+    /// &lt;inheritdoc /&gt;
+    public partial class AddRegionTable : Migration
+    {
+        /// &lt;inheritdoc /&gt;
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DeleteData(
+                table: &quot;Cities&quot;,
+                keyColumn: &quot;Id&quot;,
+                keyValue: new Guid(&quot;1e3e68c8-5d30-4210-93fd-6eca28a5b012&quot;));
+
+            migrationBuilder.DeleteData(
+                table: &quot;Cities&quot;,
+                keyColumn: &quot;Id&quot;,
+                keyValue: new Guid(&quot;37b677a1-229e-4df4-8c2a-694113d004ef&quot;));
+
+            migrationBuilder.DeleteData(
+                table: &quot;Cities&quot;,
+                keyColumn: &quot;Id&quot;,
+                keyValue: new Guid(&quot;9170514b-575f-4cdd-8fbe-d628919df13e&quot;));
+
+            migrationBuilder.DeleteData(
+                table: &quot;Cities&quot;,
+                keyColumn: &quot;Id&quot;,
+                keyValue: new Guid(&quot;a91474ca-eeeb-4f96-9a43-54dab1dc961f&quot;));
+
+            migrationBuilder.DeleteData(
+                table: &quot;Cities&quot;,
+                keyColumn: &quot;Id&quot;,
+                keyValue: new Guid(&quot;aa0016c4-1540-4138-a2fe-eee4f3b2516c&quot;));
+
+            migrationBuilder.AddColumn&lt;Guid&gt;(
+                name: &quot;RegionId&quot;,
+                table: &quot;Cities&quot;,
+                type: &quot;uuid&quot;,
+                nullable: false,
+                defaultValue: new Guid(&quot;00000000-0000-0000-0000-000000000000&quot;));
+
+            migrationBuilder.CreateTable(
+                name: &quot;Regions&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    Name = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: false)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_Regions&quot;, x =&gt; x.Id);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: &quot;IX_Cities_RegionId&quot;,
+                table: &quot;Cities&quot;,
+                column: &quot;RegionId&quot;);
+
+            migrationBuilder.AddForeignKey(
+                name: &quot;FK_Cities_Regions_RegionId&quot;,
+                table: &quot;Cities&quot;,
+                column: &quot;RegionId&quot;,
+                principalTable: &quot;Regions&quot;,
+                principalColumn: &quot;Id&quot;,
+                onDelete: ReferentialAction.Cascade);
+        }
+
+        /// &lt;inheritdoc /&gt;
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: &quot;FK_Cities_Regions_RegionId&quot;,
+                table: &quot;Cities&quot;);
+
+            migrationBuilder.DropTable(
+                name: &quot;Regions&quot;);
+
+            migrationBuilder.DropIndex(
+                name: &quot;IX_Cities_RegionId&quot;,
+                table: &quot;Cities&quot;);
+
+            migrationBuilder.DropColumn(
+                name: &quot;RegionId&quot;,
+                table: &quot;Cities&quot;);
+
+            migrationBuilder.InsertData(
+                table: &quot;Cities&quot;,
+                columns: new[] { &quot;Id&quot;, &quot;Name&quot; },
+                values: new object[,]
+                {
+                    { new Guid(&quot;1e3e68c8-5d30-4210-93fd-6eca28a5b012&quot;), &quot;Bucuresti&quot; },
+                    { new Guid(&quot;37b677a1-229e-4df4-8c2a-694113d004ef&quot;), &quot;Galati&quot; },
+                    { new Guid(&quot;9170514b-575f-4cdd-8fbe-d628919df13e&quot;), &quot;Constanta&quot; },
+                    { new Guid(&quot;a91474ca-eeeb-4f96-9a43-54dab1dc961f&quot;), &quot;Vaslui&quot; },
+                    { new Guid(&quot;aa0016c4-1540-4138-a2fe-eee4f3b2516c&quot;), &quot;Iasi&quot; }
+                });
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,9,14,10,0],[15,13,18,77,0],[20,13,23,77,0],[25,13,28,77,0],[30,13,33,77,0],[35,13,38,77,0],[40,13,45,81,0],[47,13,49,35,0],[49,35,53,18,0],[53,18,55,17,0],[55,17,55,18,0],[55,18,56,21,0],[56,21,56,63,0],[56,63,57,17,0],[57,17,57,18,0],[57,18,57,20,0],[59,13,62,37,0],[64,13,70,54,0],[71,9,71,10,0],[75,9,75,10,0],[76,13,78,34,0],[80,13,81,34,0],[83,13,85,34,0],[87,13,89,34,0],[91,13,101,20,0],[102,9,102,10,0]]);
+    </script>
+  </body>
+</html>

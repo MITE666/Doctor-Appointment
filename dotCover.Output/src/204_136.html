@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.Business\Services\Implementation\RegionService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointment.Common;
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Repositories;
+
+namespace DoctorAppointment.Application.Services.Implementation
+{
+    internal class RegionService : IRegionService
+    {
+        private readonly IRegionRepository _regionRepository;
+
+        public RegionService(IRegionRepository regionRepository)
+        {
+            _regionRepository = regionRepository;
+        }
+
+        public async Task&lt;ApiResponse&lt;IEnumerable&lt;Region&gt;&gt;&gt; GetRegionsAsync()
+        {
+            var result = await _regionRepository.GetAllRegions();
+            if (!result.Any())
+            {
+                return ApiResponse&lt;IEnumerable&lt;Region&gt;&gt;.Fail(&quot;No Regions in Database&quot;);
+            }
+            return ApiResponse&lt;IEnumerable&lt;Region&gt;&gt;.Success(result);
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,9,11,65,0],[12,9,12,10,0],[13,13,13,50,0],[14,9,14,10,0],[17,9,17,10,0],[18,13,18,66,0],[19,13,19,31,0],[20,13,20,14,0],[21,17,21,88,0],[23,13,23,69,0],[24,9,24,10,0]]);
+    </script>
+  </body>
+</html>

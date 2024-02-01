@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\Migrations\DatabaseContextModelSnapshot.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+// &lt;auto-generated /&gt;
+using System;
+using DoctorAppointments.DataAccess.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+
+#nullable disable
+
+namespace DoctorAppointments.DataAccess.Migrations
+{
+    [DbContext(typeof(DatabaseContext))]
+    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    {
+        protected override void BuildModel(ModelBuilder modelBuilder)
+        {
+#pragma warning disable 612, 618
+            modelBuilder
+                .HasAnnotation(&quot;ProductVersion&quot;, &quot;7.0.0&quot;)
+                .HasAnnotation(&quot;Relational:MaxIdentifierLength&quot;, 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Appointment&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;DateTime&gt;(&quot;Date&quot;)
+                        .HasColumnType(&quot;timestamp with time zone&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;DoctorId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;MedicalFacilityId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;PacientId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.HasIndex(&quot;DoctorId&quot;);
+
+                    b.HasIndex(&quot;MedicalFacilityId&quot;);
+
+                    b.HasIndex(&quot;PacientId&quot;);
+
+                    b.ToTable(&quot;Appointments&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Billing&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;AppointmentId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Descriprion&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;int&gt;(&quot;Price&quot;)
+                        .HasColumnType(&quot;integer&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.HasIndex(&quot;AppointmentId&quot;);
+
+                    b.ToTable(&quot;Billings&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.City&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Name&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;RegionId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.HasIndex(&quot;RegionId&quot;);
+
+                    b.ToTable(&quot;Cities&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Doctor&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;CNP&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;string&gt;(&quot;FirstName&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;string&gt;(&quot;LastName&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;MedicalFacilityId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;ProfilePicture&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;SpecialtyId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;UserId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.HasIndex(&quot;CNP&quot;)
+                        .IsUnique();
+
+                    b.HasIndex(&quot;MedicalFacilityId&quot;);
+
+                    b.HasIndex(&quot;SpecialtyId&quot;);
+
+                    b.HasIndex(&quot;UserId&quot;);
+
+                    b.ToTable(&quot;Doctors&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.MedicalFacility&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;CityId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Name&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.HasIndex(&quot;CityId&quot;);
+
+                    b.ToTable(&quot;MedicalFacilities&quot;);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid(&quot;4da05e2d-f887-466c-80ad-89cf1c0a0e8f&quot;),
+                            CityId = new Guid(&quot;451d4ccb-7d3a-11ed-b44f-13a0dd1d9e4d&quot;),
+                            Name = &quot;Arcadia&quot;
+                        },
+                        new
+                        {
+                            Id = new Guid(&quot;45bdfdd5-8631-4f55-ad58-aa4d62f6a0d4&quot;),
+                            CityId = new Guid(&quot;451d4ccb-7d3a-11ed-b44f-13a0dd1d9e4d&quot;),
+                            Name = &quot;Regina Maria&quot;
+                        });
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.MedicationStock&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;MedicalFacilityId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Name&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;decimal&gt;(&quot;Price&quot;)
+                        .HasColumnType(&quot;numeric&quot;);
+
+                    b.Property&lt;int?&gt;(&quot;Quantity&quot;)
+                        .HasColumnType(&quot;integer&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.HasIndex(&quot;MedicalFacilityId&quot;);
+
+                    b.ToTable(&quot;MedicationStocks&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Pacient&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Allergies&quot;)
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;DateTime&gt;(&quot;BirthDate&quot;)
+                        .HasColumnType(&quot;timestamp with time zone&quot;);
+
+                    b.Property&lt;string&gt;(&quot;CNP&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;Guid?&gt;(&quot;CityId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;FirstName&quot;)
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Gender&quot;)
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Height&quot;)
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;string&gt;(&quot;LastName&quot;)
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;string&gt;(&quot;MedicalHistory&quot;)
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Phone&quot;)
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;string&gt;(&quot;ProfilePicture&quot;)
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;UserId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Weight&quot;)
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.HasIndex(&quot;CNP&quot;)
+                        .IsUnique();
+
+                    b.HasIndex(&quot;CityId&quot;);
+
+                    b.HasIndex(&quot;UserId&quot;);
+
+                    b.ToTable(&quot;Pacients&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Region&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Name&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.ToTable(&quot;Regions&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Specialty&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Name&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.ToTable(&quot;Specialties&quot;);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid(&quot;ba9c9af3-a17a-4863-99d1-75892e6987ca&quot;),
+                            Name = &quot;Dermatology&quot;
+                        },
+                        new
+                        {
+                            Id = new Guid(&quot;20d8ed61-3b25-4b89-8724-bfff53dd8c43&quot;),
+                            Name = &quot;Emergency medicine&quot;
+                        },
+                        new
+                        {
+                            Id = new Guid(&quot;d2147f37-b602-4a33-b29b-a5afbf844d4f&quot;),
+                            Name = &quot;Family medicine&quot;
+                        },
+                        new
+                        {
+                            Id = new Guid(&quot;f2bfd52b-cbdd-4f90-afc8-d6f2bf903ab6&quot;),
+                            Name = &quot;Ophthalmology&quot;
+                        },
+                        new
+                        {
+                            Id = new Guid(&quot;b8cfaf4a-2be7-46b6-a30d-9156947623e9&quot;),
+                            Name = &quot;Surgery&quot;
+                        },
+                        new
+                        {
+                            Id = new Guid(&quot;410ba8be-0848-4fc2-9e15-19d883c0f19f&quot;),
+                            Name = &quot;Pediatrics&quot;
+                        });
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.User&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Email&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Password&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.Property&lt;Guid&gt;(&quot;UserTypeId&quot;)
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.HasIndex(&quot;Email&quot;)
+                        .IsUnique();
+
+                    b.HasIndex(&quot;UserTypeId&quot;);
+
+                    b.ToTable(&quot;Users&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.UserType&quot;, b =&gt;
+                {
+                    b.Property&lt;Guid&gt;(&quot;Id&quot;)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType(&quot;uuid&quot;);
+
+                    b.Property&lt;string&gt;(&quot;Type&quot;)
+                        .IsRequired()
+                        .HasColumnType(&quot;text&quot;);
+
+                    b.HasKey(&quot;Id&quot;);
+
+                    b.ToTable(&quot;UserTypes&quot;);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid(&quot;8a16d3e1-dc8d-47d6-b93a-bd7a1d5824ab&quot;),
+                            Type = &quot;Patient&quot;
+                        },
+                        new
+                        {
+                            Id = new Guid(&quot;430f6e13-ff63-461f-9f24-4054b2d68bee&quot;),
+                            Type = &quot;Doctor&quot;
+                        });
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Appointment&quot;, b =&gt;
+                {
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.Doctor&quot;, &quot;Doctor&quot;)
+                        .WithMany(&quot;Appointments&quot;)
+                        .HasForeignKey(&quot;DoctorId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.MedicalFacility&quot;, &quot;MedicalFacility&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;MedicalFacilityId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.Pacient&quot;, &quot;Pacient&quot;)
+                        .WithMany(&quot;Appointments&quot;)
+                        .HasForeignKey(&quot;PacientId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation(&quot;Doctor&quot;);
+
+                    b.Navigation(&quot;MedicalFacility&quot;);
+
+                    b.Navigation(&quot;Pacient&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Billing&quot;, b =&gt;
+                {
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.Appointment&quot;, &quot;Appointment&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;AppointmentId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation(&quot;Appointment&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.City&quot;, b =&gt;
+                {
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.Region&quot;, &quot;Region&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;RegionId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation(&quot;Region&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Doctor&quot;, b =&gt;
+                {
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.MedicalFacility&quot;, &quot;MedicalFacility&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;MedicalFacilityId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.Specialty&quot;, &quot;Specialty&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;SpecialtyId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.User&quot;, &quot;User&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;UserId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation(&quot;MedicalFacility&quot;);
+
+                    b.Navigation(&quot;Specialty&quot;);
+
+                    b.Navigation(&quot;User&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.MedicalFacility&quot;, b =&gt;
+                {
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.City&quot;, &quot;City&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;CityId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation(&quot;City&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.MedicationStock&quot;, b =&gt;
+                {
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.MedicalFacility&quot;, &quot;MedicalFacility&quot;)
+                        .WithMany(&quot;Medications&quot;)
+                        .HasForeignKey(&quot;MedicalFacilityId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation(&quot;MedicalFacility&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Pacient&quot;, b =&gt;
+                {
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.City&quot;, &quot;City&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;CityId&quot;);
+
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.User&quot;, &quot;User&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;UserId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation(&quot;City&quot;);
+
+                    b.Navigation(&quot;User&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.User&quot;, b =&gt;
+                {
+                    b.HasOne(&quot;DoctorAppointments.DataAccess.Entities.UserType&quot;, &quot;UserType&quot;)
+                        .WithMany()
+                        .HasForeignKey(&quot;UserTypeId&quot;)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation(&quot;UserType&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Doctor&quot;, b =&gt;
+                {
+                    b.Navigation(&quot;Appointments&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.MedicalFacility&quot;, b =&gt;
+                {
+                    b.Navigation(&quot;Medications&quot;);
+                });
+
+            modelBuilder.Entity(&quot;DoctorAppointments.DataAccess.Entities.Pacient&quot;, b =&gt;
+                {
+                    b.Navigation(&quot;Appointments&quot;);
+                });
+#pragma warning restore 612, 618
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[17,9,17,10,0],[19,13,21,70,0],[23,13,23,84,0],[25,13,26,17,0],[26,17,26,18,0],[26,18,27,21,0],[27,21,29,48,0],[29,48,31,21,0],[31,21,32,68,0],[32,68,34,21,0],[34,21,35,48,0],[35,48,37,21,0],[37,21,38,48,0],[38,48,40,21,0],[40,21,41,48,0],[41,48,43,21,0],[43,21,43,36,0],[43,36,45,21,0],[45,21,45,44,0],[45,44,47,21,0],[47,21,47,53,0],[47,53,49,21,0],[49,21,49,45,0],[49,45,51,21,0],[51,21,51,47,0],[51,47,52,17,0],[52,17,52,18,0],[52,18,52,20,0],[54,13,55,17,0],[55,17,55,18,0],[55,18,56,21,0],[56,21,58,48,0],[58,48,60,21,0],[60,21,61,48,0],[61,48,63,21,0],[63,21,65,48,0],[65,48,67,21,0],[67,21,68,51,0],[68,51,70,21,0],[70,21,70,36,0],[70,36,72,21,0],[72,21,72,49,0],[72,49,74,21,0],[74,21,74,43,0],[74,43,75,17,0],[75,17,75,18,0],[75,18,75,20,0],[77,13,78,17,0],[78,17,78,18,0],[78,18,79,21,0],[79,21,81,48,0],[81,48,83,21,0],[83,21,85,48,0],[85,48,87,21,0],[87,21,88,48,0],[88,48,90,21,0],[90,21,90,36,0],[90,36,92,21,0],[92,21,92,44,0],[92,44,94,21,0],[94,21,94,41,0],[94,41,95,17,0],[95,17,95,18,0],[95,18,95,20,0],[97,13,98,17,0],[98,17,98,18,0],[98,18,99,21,0],[99,21,101,48,0],[101,48,103,21,0],[103,21,105,48,0],[105,48,107,21,0],[107,21,109,48,0],[109,48,111,21,0],[111,21,113,48,0],[113,48,115,21,0],[115,21,116,48,0],[116,48,118,21,0],[118,21,120,48,0],[120,48,122,21,0],[122,21,123,48,0],[123,48,125,21,0],[125,21,126,48,0],[126,48,128,21,0],[128,21,128,36,0],[128,36,130,21,0],[130,21,131,37,0],[131,37,133,21,0],[133,21,133,53,0],[133,53,135,21,0],[135,21,135,47,0],[135,47,137,21,0],[137,21,137,42,0],[137,42,139,21,0],[139,21,139,42,0],[139,42,140,17,0],[140,17,140,18,0],[140,18,140,20,0],[142,13,143,17,0],[143,17,143,18,0],[143,18,144,21,0],[144,21,146,48,0],[146,48,148,21,0],[148,21,149,48,0],[149,48,151,21,0],[151,21,153,48,0],[153,48,155,21,0],[155,21,155,36,0],[155,36,157,21,0],[157,21,157,42,0],[157,42,159,21,0],[159,21,159,52,0],[159,52,161,21,0],[161,21,173,28,0],[173,28,174,17,0],[174,17,174,18,0],[174,18,174,20,0],[176,13,177,17,0],[177,17,177,18,0],[177,18,178,21,0],[178,21,180,48,0],[180,48,182,21,0],[182,21,183,48,0],[183,48,185,21,0],[185,21,187,48,0],[187,48,189,21,0],[189,21,190,51,0],[190,51,192,21,0],[192,21,193,51,0],[193,51,195,21,0],[195,21,195,36,0],[195,36,197,21,0],[197,21,197,53,0],[197,53,199,21,0],[199,21,199,51,0],[199,51,200,17,0],[200,17,200,18,0],[200,18,200,20,0],[202,13,203,17,0],[203,17,203,18,0],[203,18,204,21,0],[204,21,206,48,0],[206,48,208,21,0],[208,21,209,48,0],[209,48,211,21,0],[211,21,212,68,0],[212,68,214,21,0],[214,21,216,48,0],[216,48,218,21,0],[218,21,219,48,0],[219,48,221,21,0],[221,21,222,48,0],[222,48,224,21,0],[224,21,225,48,0],[225,48,227,21,0],[227,21,228,48,0],[228,48,230,21,0],[230,21,231,48,0],[231,48,233,21,0],[233,21,234,48,0],[234,48,236,21,0],[236,21,237,48,0],[237,48,239,21,0],[239,21,240,48,0],[240,48,242,21,0],[242,21,243,48,0],[243,48,245,21,0],[245,21,246,48,0],[246,48,248,21,0],[248,21,248,36,0],[248,36,250,21,0],[250,21,251,37,0],[251,37,253,21,0],[253,21,253,42,0],[253,42,255,21,0],[255,21,255,42,0],[255,42,257,21,0],[257,21,257,43,0],[257,43,258,17,0],[258,17,258,18,0],[258,18,258,20,0],[260,13,261,17,0],[261,17,261,18,0],[261,18,262,21,0],[262,21,264,48,0],[264,48,266,21,0],[266,21,268,48,0],[268,48,270,21,0],[270,21,270,36,0],[270,36,272,21,0],[272,21,272,42,0],[272,42,273,17,0],[273,17,273,18,0],[273,18,273,20,0],[275,13,276,17,0],[276,17,276,18,0],[276,18,277,21,0],[277,21,279,48,0],[279,48,281,21,0],[281,21,283,48,0],[283,48,285,21,0],[285,21,285,36,0],[285,36,287,21,0],[287,21,287,46,0],[287,46,289,21,0],[289,21,319,28,0],[319,28,320,17,0],[320,17,320,18,0],[320,18,320,20,0],[322,13,323,17,0],[323,17,323,18,0],[323,18,324,21,0],[324,21,326,48,0],[326,48,328,21,0],[328,21,330,48,0],[330,48,332,21,0],[332,21,334,48,0],[334,48,336,21,0],[336,21,337,48,0],[337,48,339,21,0],[339,21,339,36,0],[339,36,341,21,0],[341,21,342,37,0],[342,37,344,21,0],[344,21,344,46,0],[344,46,346,21,0],[346,21,346,40,0],[346,40,347,17,0],[347,17,347,18,0],[347,18,347,20,0],[349,13,350,17,0],[350,17,350,18,0],[350,18,351,21,0],[351,21,353,48,0],[353,48,355,21,0],[355,21,357,48,0],[357,48,359,21,0],[359,21,359,36,0],[359,36,361,21,0],[361,21,361,44,0],[361,44,363,21,0],[363,21,373,28,0],[373,28,374,17,0],[374,17,374,18,0],[374,18,374,20,0],[376,13,377,17,0],[377,17,377,18,0],[377,18,378,21,0],[378,21,382,39,0],[382,39,384,21,0],[384,21,388,39,0],[388,39,390,21,0],[390,21,394,39,0],[394,39,396,21,0],[396,21,396,44,0],[396,44,398,21,0],[398,21,398,53,0],[398,53,400,21,0],[400,21,400,45,0],[400,45,401,17,0],[401,17,401,18,0],[401,18,401,20,0],[403,13,404,17,0],[404,17,404,18,0],[404,18,405,21,0],[405,21,409,39,0],[409,39,411,21,0],[411,21,411,49,0],[411,49,412,17,0],[412,17,412,18,0],[412,18,412,20,0],[414,13,415,17,0],[415,17,415,18,0],[415,18,416,21,0],[416,21,420,39,0],[420,39,422,21,0],[422,21,422,44,0],[422,44,423,17,0],[423,17,423,18,0],[423,18,423,20,0],[425,13,426,17,0],[426,17,426,18,0],[426,18,427,21,0],[427,21,431,39,0],[431,39,433,21,0],[433,21,437,39,0],[437,39,439,21,0],[439,21,443,39,0],[443,39,445,21,0],[445,21,445,53,0],[445,53,447,21,0],[447,21,447,47,0],[447,47,449,21,0],[449,21,449,42,0],[449,42,450,17,0],[450,17,450,18,0],[450,18,450,20,0],[452,13,453,17,0],[453,17,453,18,0],[453,18,454,21,0],[454,21,458,39,0],[458,39,460,21,0],[460,21,460,42,0],[460,42,461,17,0],[461,17,461,18,0],[461,18,461,20,0],[463,13,464,17,0],[464,17,464,18,0],[464,18,465,21,0],[465,21,469,39,0],[469,39,471,21,0],[471,21,471,53,0],[471,53,472,17,0],[472,17,472,18,0],[472,18,472,20,0],[474,13,475,17,0],[475,17,475,18,0],[475,18,476,21,0],[476,21,478,50,0],[478,50,480,21,0],[480,21,484,39,0],[484,39,486,21,0],[486,21,486,42,0],[486,42,488,21,0],[488,21,488,42,0],[488,42,489,17,0],[489,17,489,18,0],[489,18,489,20,0],[491,13,492,17,0],[492,17,492,18,0],[492,18,493,21,0],[493,21,497,39,0],[497,39,499,21,0],[499,21,499,46,0],[499,46,500,17,0],[500,17,500,18,0],[500,18,500,20,0],[502,13,503,17,0],[503,17,503,18,0],[503,18,504,21,0],[504,21,504,50,0],[504,50,505,17,0],[505,17,505,18,0],[505,18,505,20,0],[507,13,508,17,0],[508,17,508,18,0],[508,18,509,21,0],[509,21,509,49,0],[509,49,510,17,0],[510,17,510,18,0],[510,18,510,20,0],[512,13,513,17,0],[513,17,513,18,0],[513,18,514,21,0],[514,21,514,50,0],[514,50,515,17,0],[515,17,515,18,0],[515,18,515,20,0],[517,9,517,10,0]]);
+    </script>
+  </body>
+</html>

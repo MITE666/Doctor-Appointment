@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Persistence\Migrations\20221110205908_InitialCreate.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace DoctorAppointments.DataAccess.Migrations
+{
+    /// &lt;inheritdoc /&gt;
+    public partial class InitialCreate : Migration
+    {
+        /// &lt;inheritdoc /&gt;
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: &quot;Users&quot;,
+                columns: table =&gt; new
+                {
+                    Id = table.Column&lt;Guid&gt;(type: &quot;uuid&quot;, nullable: false),
+                    FirstName = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    LastName = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    Address = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true),
+                    PhoneNumber = table.Column&lt;string&gt;(type: &quot;text&quot;, nullable: true)
+                },
+                constraints: table =&gt;
+                {
+                    table.PrimaryKey(&quot;PK_Users&quot;, x =&gt; x.Id);
+                });
+        }
+
+        /// &lt;inheritdoc /&gt;
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: &quot;Users&quot;);
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,9,12,10,0],[13,13,15,35,0],[15,35,22,18,0],[22,18,24,17,0],[24,17,24,18,0],[24,18,25,21,0],[25,21,25,61,0],[25,61,26,17,0],[26,17,26,18,0],[26,18,26,20,0],[27,9,27,10,0],[31,9,31,10,0],[32,13,33,32,0],[34,9,34,10,0]]);
+    </script>
+  </body>
+</html>

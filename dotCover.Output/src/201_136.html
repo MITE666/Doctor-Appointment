@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.Business\Services\Implementation\MedicalFacilityService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoMapper;
+using DoctorAppointment.Application.Models;
+using DoctorAppointment.Common;
+using DoctorAppointments.DataAccess.Entities;
+using DoctorAppointments.DataAccess.Repositories;
+
+namespace DoctorAppointment.Application.Services.Implementation;
+
+public class MedicalFacilityService : IMedicalFacilityService
+{
+    private readonly IMedicalFacilityRepository _facilityRepository;
+    private readonly IMapper _mapper;
+
+    public MedicalFacilityService(IMedicalFacilityRepository facilityRepository, IMapper mapper)
+    {
+        _facilityRepository = facilityRepository;
+        _mapper = mapper;
+    }
+
+    public async Task&lt;ApiResponse&lt;MedicalFacilityResponseModel&gt;&gt; AddFacility(MedicalFacilityRequestModel medicalFacilityRequestModel)
+    {
+        var facility = _mapper.Map&lt;MedicalFacility&gt;(medicalFacilityRequestModel);
+        facility = await _facilityRepository.AddFacility(facility);
+        return ApiResponse&lt;MedicalFacilityResponseModel&gt;.Success(_mapper.Map&lt;MedicalFacilityResponseModel&gt;(facility));
+    }
+
+    public async Task&lt;ApiResponse&lt;bool&gt;&gt; DeleteFacility(Guid id)
+    {
+        var result = await _facilityRepository.DeleteFacility(id);
+        if (result)
+            return ApiResponse&lt;bool&gt;.Success(true);
+        return ApiResponse&lt;bool&gt;.Fail(&quot;MedicalFacility not found&quot;);
+    }
+
+    public async Task&lt;ApiResponse&lt;List&lt;MedicalFacilityResponseModel&gt;&gt;&gt; GetAllFacilities()
+    {
+        var facility = await _facilityRepository.GetAllFacilities();
+        if (facility.Count == 0)
+        {
+            return ApiResponse&lt;List&lt;MedicalFacilityResponseModel&gt;&gt;.Fail(&quot;Could not find MedicalFacilities in db&quot;);
+        }
+        return ApiResponse&lt;List&lt;MedicalFacilityResponseModel&gt;&gt;.Success(_mapper.Map&lt;List&lt;MedicalFacilityResponseModel&gt;&gt;(facility));
+    }
+
+    public async Task&lt;ApiResponse&lt;MedicalFacilityResponseModel&gt;&gt; GetFacilityById(Guid id)
+    {
+        var facility = await _facilityRepository.GetFacilityById(id);
+        return facility == null
+            ? ApiResponse&lt;MedicalFacilityResponseModel&gt;.Fail(&quot;Could not find MedicalFacility&quot;)
+            : ApiResponse&lt;MedicalFacilityResponseModel&gt;.Success(_mapper.Map&lt;MedicalFacilityResponseModel&gt;(facility));
+    }
+
+    public async Task&lt;ApiResponse&lt;MedicalFacilityResponseModel&gt;&gt; UpdateFacility(MedicalFacility medicalFacility)
+    {
+        var result = await _facilityRepository.UpdateFacility(medicalFacility);
+        if (result == null)
+        {
+            return ApiResponse&lt;MedicalFacilityResponseModel&gt;.Fail(&quot;Could not find MedicalFacility&quot;);
+        }
+        return ApiResponse&lt;MedicalFacilityResponseModel&gt;.Success(_mapper.Map&lt;MedicalFacilityResponseModel&gt;(result));
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,5,14,97,1],[15,5,15,6,1],[16,9,16,50,1],[17,9,17,26,1],[18,5,18,6,1],[21,5,21,6,1],[22,9,22,82,1],[23,9,23,68,1],[24,9,24,119,1],[25,5,25,6,1],[28,5,28,6,1],[29,9,29,67,1],[30,9,30,20,1],[31,13,31,52,1],[32,9,32,68,1],[33,5,33,6,1],[36,5,36,6,1],[37,9,37,69,1],[38,9,38,33,1],[39,9,39,10,1],[40,13,40,115,1],[42,9,42,131,1],[43,5,43,6,1],[46,5,46,6,1],[47,9,47,70,1],[48,9,50,118,1],[51,5,51,6,1],[54,5,54,6,1],[55,9,55,80,1],[56,9,56,28,1],[57,9,57,10,1],[58,13,58,101,1],[60,9,60,117,1],[61,5,61,6,1]]);
+    </script>
+  </body>
+</html>

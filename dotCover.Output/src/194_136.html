@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.Business\Validators\DoctorValidator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DoctorAppointment.Application.Models;
+using FluentValidation;
+
+namespace DoctorAppointment.Application.Validators;
+
+public class DoctorValidator : AbstractValidator&lt;DoctorRequestModel&gt;
+{
+    public DoctorValidator()
+    {
+        ClassLevelCascadeMode = CascadeMode.Stop;
+        RuleFor(doc =&gt; doc.CNP).NotEmpty().NotNull()
+            .Matches(
+                &quot;^[1-9]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)(00[1-9]|0[1-9]\\d|[1-9]\\d\\d)\\d$&quot;)
+            .WithMessage(&quot;Not a valid CNP format!&quot;);
+        RuleFor(doc =&gt; doc.FirstName).NotEmpty().NotNull();
+        RuleFor(doc =&gt; doc.LastName).NotEmpty().NotNull();
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,5,8,29,0],[9,5,9,6,0],[10,9,10,50,0],[11,9,14,53,0],[15,9,15,60,0],[16,9,16,59,0],[17,5,17,6,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Commands",
+    "\\Handlers",
+    "\\Mapping",
+    "\\Models",
+    "\\Services",
+    "\\Services\\Implementation"
+  ],
+  "SelectedNode": "\\Models\\AppointmentRequestModel.cs",
+  "PreviewInSolutionExplorer": false
+}

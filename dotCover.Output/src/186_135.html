@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\oencut\Personal\Doctor-Appointment\Backend\DoctorAppointment\DoctorAppointments.DataAccess\Entities\MedicalFacility.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace DoctorAppointments.DataAccess.Entities;
+
+#pragma warning disable 8618
+
+public class MedicalFacility : Entity
+{
+    public string Name { get; set; }
+
+    public Guid CityId { get; set; }
+
+    public City City { get; set; }
+
+    public IEnumerable&lt;MedicationStock&gt; Medications { get; set; }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[7,26,7,30,1],[7,31,7,35,1],[9,26,9,30,1],[9,31,9,35,1],[11,24,11,28,1],[11,29,11,33,1],[13,55,13,59,1],[13,60,13,64,0]]);
+    </script>
+  </body>
+</html>
