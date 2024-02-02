@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+        <PackageReference Include="xunit" Version="2.4.2" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.collector" Version="3.1.2">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DoctorAppointment.Common\DoctorAppointment.Common.csproj" />
+      <ProjectReference Include="..\DoctorAppointments.API\DoctorAppointments.API.csproj" />
+      <ProjectReference Include="..\DoctorAppointments.Business\DoctorAppointments.Application.csproj" />
+      <ProjectReference Include="..\DoctorAppointments.DataAccess\DoctorAppointments.DataAccess.csproj" />
+      <ProjectReference Include="..\DoctorIntegrationTests\DoctorIntegrationTests.csproj" />
+      <ProjectReference Include="..\DoctorServiceTests\DoctorServiceTests.csproj" />
+      <ProjectReference Include="..\MedicalFacilityServiceTests\MedicalFacilityServiceTests.csproj" />
+      <ProjectReference Include="..\MedicationStockIntegrationTests\MedicationStockIntegrationTests.csproj" />
+      <ProjectReference Include="..\MedicationStockServiceTests\MedicationStockServiceTests.csproj" />
+      <ProjectReference Include="..\PacientIntegrationTests\PacientIntegrationTests.csproj" />
+      <ProjectReference Include="..\PacientServiceTests\PacientServiceTests.csproj" />
+      <ProjectReference Include="..\UserIntegrationTests\UserIntegrationTests.csproj" />
+      <ProjectReference Include="..\UserTests\UserTests.csproj" />
+    </ItemGroup>
+
+</Project>
